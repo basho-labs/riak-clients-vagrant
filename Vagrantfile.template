@@ -1,0 +1,85 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = "chef/centos-6.5"
+
+  # Disable automatic box update checking. If you disable this, then
+  # boxes will only be checked for updates when the user runs
+  # `vagrant box outdated`. This is not recommended.
+  # config.vm.box_check_update = false
+
+  ##########################################################################
+  # Networking / Port Forwarding
+  ##########################################################################
+  # Guest VM's hostname
+  config.vm.hostname = "localhost"
+
+  # SSH port
+  #   - Only needed if you are going to run multiple Vagrant Instances of Guest VMs
+  #config.vm.network :forwarded_port, guest: 22, host: 4545
+
+  # Riak Ports
+  config.vm.network :forwarded_port, guest: 8087, host: 17017
+  config.vm.network :forwarded_port, guest: 8098, host: 17018
+
+  config.vm.network "public_network", ip: "192.168.29.51", bridge: 'en0: Wi-Fi (AirPort)'
+
+  ##########################################################################
+  # File Sharing
+  ##########################################################################
+  # WARNING: Avoid absolute symlinks within shared directories on the host, it causes unexpected behaviors
+
+  # Provisioning directory
+  config.vm.synced_folder "./", "/vagrant"
+
+  # Ansible Galaxy dev roles
+  #   - If you need access or are developing an Ansible Galaxy role that is not available in AG, you
+  #     can drop those here and reference them via relative symlink.
+  #config.vm.synced_folder "../ansible/", "/ansible"
+
+  # Code checkouts directory
+  #   - If you want to share your code from a different directory, replace
+  #     "../code/" with the path of where your current code is
+  config.vm.synced_folder "../code/", "/var/www", mount_options: ["dmode=777,fmode=777"]
+
+  # General files directory
+  #   - Useful to provide access to misc files between the Host and Guest machines
+  #     e.g. a sql dump file used to seed or backup a database on the Guest VM
+  config.vm.synced_folder "../files/", "/home/vagrant/files"
+
+  ##########################################################################
+  # Provisioning
+  ##########################################################################
+  # Script that installs Ansible onto the Guest, configures the Guest as a host for Ansible,
+  #  then executes /vagrant/provisioning/playbook.yml to provision your Guest.
+  #   - This script is kicked off upon the initial "vagrant up" command issued on this vagrant instance
+  #     and then only when the "vagrant provision" command is issued on this instance
+  # config.vm.provision "shell", path: "provisioning/bootstrap.sh"
+
+  ##########################################################################
+  # VirtualBox Guest Virtual Machine Configuaration
+  ##########################################################################
+  config.vm.provider :virtualbox do |v|
+    # Host machine cpu cores to make available to Guest VM
+    v.cpus = 2
+
+    # Host machine memory to make available to Guest VM
+    v.memory = 2048
+
+    # Name used within VirtualBox application for this Guest VM.
+    #   - Change in the event of conflicts (e.g. running more than one Guest VM using the same Vagrant config)
+    v.name = "vagrant-ruby"
+
+    # Enables a GUI for your Guest VM. Useful for troubleshooting.
+    #   - The default is false
+    #v.gui = true
+
+    # nat
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+  end
+end

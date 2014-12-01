@@ -1,0 +1,14 @@
+---
+- name: install php cli and needed extensions
+  yum: name={{ item }} state=present
+  with_items:
+    - php-cli
+    - php-pear
+    - php-xml
+    - php-pecl-xdebug
+
+- name: Fetch composer
+  shell: "curl -sS https://getcomposer.org/installer | /usr/bin/php"
+
+- name: Install it globally
+  shell: "/bin/mv -f composer.phar /usr/bin/composer"

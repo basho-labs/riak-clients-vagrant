@@ -1,0 +1,5 @@
+.DS_Store
+.vagrant
+Vagrantfile
+playbook.yml
+provisioning/roles/basho.riak-dev

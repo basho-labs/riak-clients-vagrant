@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  sudo: true
+  roles:
+    # client environments
+    - php
+    - ruby
+    #- python
+    #- node
+    #- net
+    #- java
+
+    # installs riak & dependencies
+    - riak
+
+  vars:
+    # Riak is configured to match buildbots integration testing config.
+    # The riak_config_set variable overrides that default. 
+    # 
+    # Options: default, integration
+    #
+    #- riak_config_set: integration
+
+    # Riak package override for Ansible Galaxy Riak role
+    riak_package: riak

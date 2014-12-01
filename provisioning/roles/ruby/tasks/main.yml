@@ -1,0 +1,10 @@
+---
+- name: install ruby environment and dependencies
+  yum: name={{ item }} state=present
+  with_items:
+    - ruby
+    - ruby-devel
+    - expect
+
+- name: Install bundler
+  gem: name=bundler state=present

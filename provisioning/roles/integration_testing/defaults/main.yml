@@ -1,0 +1,29 @@
+---
+  dev:          'false'
+  riak_admin:   '/usr/bin/riak-admin'
+
+  it_bucket_types:
+    - { name: other_counters, props: '{"props":{"datatype":"counter", "allow_mult":true}}' }
+    - { name: counters,  props: '{"props":{"datatype":"counter", "allow_mult":true}}' }
+    - { name: maps, props: '{"props":{"datatype":"map", "allow_mult":true}}' }
+    - { name: sets, props: '{"props":{"datatype":"set", "allow_mult":true}}' }
+    - { name: yokozuna, props: '{"props":{}}' }
+
+  it_user:
+    name:     'user'
+    password: 'password'
+
+  it_cert_user: 'certuser'
+
+  it_cert_dir: '/home/vagrant/certs'
+
+  riak_conf:
+    buckets-default-allow_mult: 'true'
+    check_crl:                  'off'
+    listener-http-internal:     '127.0.0.1:8098'
+    listener-protobuf-internal: '127.0.0.1:8087'
+    ssl-certfile:               '{{ it_cert_path }}/server.crt'
+    ssl-keyfile:                '{{ it_cert_path }}/server.key'
+    ssl-cacertfile:             '{{ it_cert_path }}/ca.crt'
+    storage_backend:            'memory'
+    tls_protocols-tlsv1-1:      'on'

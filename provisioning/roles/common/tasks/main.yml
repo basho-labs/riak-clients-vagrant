@@ -1,0 +1,29 @@
+---
+- name: install utilities and dependencies
+  yum: name={{ item }} state=present
+  with_items:
+    - curl
+    - gcc
+    - gcc-c++
+    - glibc-devel
+    - make
+    - ntpdate
+    - pam-devel
+    - vim
+    - wget
+
+# Install mercurial and config
+- name: Install versioning software
+  yum: name={{ item }} state=present
+  with_items:
+    - git
+    - mercurial
+
+- name: setup ntpdate cron
+  cron: name="NTP Updater" minute="0" job="/usr/sbin/ntpdate -us clock.isc.org"
+
+- name: Make sure iptables is stopped / disabled
+  service: name={{ item }} state=stopped enabled=no
+  with_items:
+    - iptables
+    - ip6tables
