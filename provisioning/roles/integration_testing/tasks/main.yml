@@ -9,7 +9,7 @@
     - server.key
 
 - name: Create bucket types
-  command: '{{ riak_admin }} bucket-type create {{ item.name }} \'{{ item.props }}\''
+  command: '{{ riak_admin }} bucket-type create {{ item.name }} ''{{ item.props }}'''
   with_items: it_bucket_types
 
 - name: Activate bucket types
@@ -23,7 +23,7 @@
   command: '{{ riak_admin }} security add-source {{ it_user.name }} 127.0.0.1/32 {{ it_user.password }}'
 
 - name: Create cert user
-  command: '{{ riak_admin }} security add-user {{ it_cert_user }}
+  command: '{{ riak_admin }} security add-user {{ it_cert_user }}'
 
 - name: Add source for user
   command: '{{ riak_admin }} security add-source {{ it_cert_user }} 127.0.0.1/32 certificate'
