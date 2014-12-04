@@ -27,7 +27,7 @@ sudo yum -y install ansible
 sudo echo localhost > /etc/ansible/hosts
 
 # install galaxy roles
-sudo ansible-galaxy install basho.riak
+sudo ansible-galaxy install basho.riak rvm_io.rvm1-ruby
 
 printf '
 ######################################################################################

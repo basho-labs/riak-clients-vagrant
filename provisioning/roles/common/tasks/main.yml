@@ -2,15 +2,29 @@
 - name: install utilities and dependencies
   yum: name={{ item }} state=present
   with_items:
+    - autoconf
+    - automake
+    - bison
+    - bzip2
     - curl
     - gcc
     - gcc-c++
     - glibc-devel
+    - iconv-devel
+    - libffi-devel
+    - libtool
+    - libyaml-devel
     - make
     - ntpdate
+    - openssl-devel
     - pam-devel
+    - patch
+    - readline
+    - readline-devel
     - vim
     - wget
+    - zlib
+    - zlib-devel
 
 # Install mercurial and config
 - name: Install versioning software

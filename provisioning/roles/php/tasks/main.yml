@@ -1,14 +1,17 @@
 ---
+- name: configure the webtatic latest repository to get access to 5.4
+  yum: name=https://mirror.webtatic.com/yum/el6/latest.rpm
+
 - name: install php cli and needed extensions
   yum: name={{ item }} state=present
   with_items:
-    - php-cli
-    - php-pear
-    - php-xml
-    - php-pecl-xdebug
+    - php54w-cli
+    - php54w-pear
+    - php54w-xml
+    - php54w-pecl-xdebug
 
 - name: Fetch composer
-  shell: "curl -sS https://getcomposer.org/installer | /usr/bin/php"
+  command: "curl -sS https://getcomposer.org/installer | /usr/bin/php"
 
 - name: Install it globally
-  shell: "/bin/mv -f composer.phar /usr/bin/composer"
+  command: "/bin/mv -f composer.phar /usr/bin/composer"
