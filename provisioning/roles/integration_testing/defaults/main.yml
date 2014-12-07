@@ -1,6 +1,6 @@
 ---
   dev:          'false'
-  riak_admin:   '/usr/bin/riak-admin'
+  riak_admin:   '/usr/sbin/riak-admin'
 
   it_bucket_types:
     - { name: other_counters, props: '{"props":{"datatype":"counter", "allow_mult":true}}' }

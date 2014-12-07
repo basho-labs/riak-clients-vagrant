@@ -10,7 +10,6 @@
     - gcc
     - gcc-c++
     - glibc-devel
-    - iconv-devel
     - libffi-devel
     - libtool
     - libyaml-devel

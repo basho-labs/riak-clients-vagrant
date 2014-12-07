@@ -1,6 +1,9 @@
 ---
+- name: Make sure directory exists for certs
+  file: path=/home/vagrant/certs state=directory owner=vagrant mode=0644
+
 - name: Copy server certificate files for ssl/tls
-  copy: src=certs/{{ item }} dest=/home/vagrant/certs/{{ item }} mode=0644
+  copy: 'src=certs/{{ item }} dest=/home/vagrant/certs/{{ item }} mode=0644'
   with_items:
     - ca.crt
     - README
