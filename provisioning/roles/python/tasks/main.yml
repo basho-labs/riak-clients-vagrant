@@ -39,6 +39,7 @@
 
 - name: Install Setuptools
   shell: "curl https://bootstrap.pypa.io/ez_setup.py -o - | /usr/local/bin/python{{ item.1|truncate(3, true, '') }} chdir=/tmp"
+  when: "pythons.results[item.0].stat.exists == false"
   with_indexed_items: python_versions
 
 - name: Install PIP
