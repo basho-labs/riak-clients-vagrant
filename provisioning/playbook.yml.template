@@ -2,24 +2,35 @@
 - hosts: localhost
   sudo: true
   roles:
-    # client environments
+    # comment out the environments you don't want
     - php
     - ruby
-    #- python
-    #- node
-    #- net
-    #- java
-
-    # installs riak & dependencies
-    - riak
-
+    #- { role: christophermancini.php, tags: php }
+    #- { role: christophermancini.pyenv, tags: python }
+    - { role: integration_testing, dev: true }
   vars:
-    # Riak is configured to match buildbots integration testing config.
-    # The riak_config_set variable overrides that default. 
-    # 
-    # Options: default, integration
-    #
-    #- riak_config_set: integration
+    # the vars section is used to pick the settings you want for your local environment
+    # see roles/{role_name}/defaults/main.yml for settings you can override
 
-    # Riak package override for Ansible Galaxy Riak role
-    riak_package: riak
+    # what versions of ruby to install
+    rvm1_rubies:
+      - ruby-1.9
+      - ruby-2.0
+      - ruby-2.1
+
+    # default version for 'ruby' command
+    rvm1_default_ruby_version: ruby-2.0
+
+    pyenv_python_versions:
+      - 2.6.9
+      - 2.7.9
+      - 3.3.6
+      - 3.4.2
+
+    phpenv_php_versions:
+      - "5.4"
+      - "5.5"
+      - "5.6"
+
+    riak_conf:
+      search: 'on'

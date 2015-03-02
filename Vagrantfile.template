@@ -73,7 +73,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Name used within VirtualBox application for this Guest VM.
     #   - Change in the event of conflicts (e.g. running more than one Guest VM using the same Vagrant config)
-    v.name = "vagrant-ruby"
+    v.name = "vagrant-riak"
 
     # Enables a GUI for your Guest VM. Useful for troubleshooting.
     #   - The default is false
