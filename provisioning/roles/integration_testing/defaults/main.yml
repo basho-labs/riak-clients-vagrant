@@ -3,10 +3,10 @@
   riak_admin:   '/usr/sbin/riak-admin'
 
   it_bucket_types:
-    - { name: other_counters, props: '{"props":{"datatype":"counter", "allow_mult":true}}' }
-    - { name: counters,  props: '{"props":{"datatype":"counter", "allow_mult":true}}' }
-    - { name: maps, props: '{"props":{"datatype":"map", "allow_mult":true}}' }
-    - { name: sets, props: '{"props":{"datatype":"set", "allow_mult":true}}' }
+    - { name: other_counters, props: '{"props":{"datatype":"counter"}}' }
+    - { name: counters,  props: '{"props":{"datatype":"counter"}}' }
+    - { name: maps, props: '{"props":{"datatype":"map"}}' }
+    - { name: sets, props: '{"props":{"datatype":"set"}}' }
     - { name: yokozuna, props: '{"props":{}}' }
 
   it_user:
