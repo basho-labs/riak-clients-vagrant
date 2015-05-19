@@ -1,14 +1,11 @@
 ---
-- name: configure the webtatic latest repository to get access to 5.4
-  yum: name=https://mirror.webtatic.com/yum/el6/latest.rpm
-
 - name: install php cli and needed extensions
   yum: name={{ item }} state=present
   with_items:
-    - php54w-cli
-    - php54w-pear
-    - php54w-xml
-    - php54w-pecl-xdebug
+    - php-cli
+    - php-pear
+    - php-xml
+    - php-pecl-xdebug
 
 - name: Check if composer is installed
   stat: path=/usr/bin/composer
