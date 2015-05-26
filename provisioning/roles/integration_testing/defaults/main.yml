@@ -1,29 +1,77 @@
 ---
-  dev:          'false'
-  riak_admin:   '/usr/sbin/riak-admin'
+dev:            'false'
 
-  it_bucket_types:
-    - { name: other_counters, props: '{"props":{"datatype":"counter"}}' }
-    - { name: counters,  props: '{"props":{"datatype":"counter"}}' }
-    - { name: maps, props: '{"props":{"datatype":"map"}}' }
-    - { name: sets, props: '{"props":{"datatype":"set"}}' }
-    - { name: yokozuna, props: '{"props":{}}' }
+it_certs_dir:   '/vagrant/tools/test-ca'
+it_permissions: 
+  - riak_kv.get
+  - riak_kv.put
+  - riak_kv.delete
+  - riak_kv.index
+  - riak_kv.list_keys
+  - riak_kv.list_buckets
+  - riak_core.get_bucket
+  - riak_core.set_bucket
+  - riak_core.get_bucket_type
+  - riak_core.set_bucket_type
+  - search.admin
+  - search.query
 
-  it_user:
-    name:     'user'
-    password: 'password'
+it_data_dir: '/var/lib/riak'
 
-  it_cert_user: 'certuser'
+# setup Riak environment (bucket-types, users, sources, grants, conf)
+riak_bucket_types:
+  - { name: plain, props: '{"props":{}}' }
 
-  it_cert_dir: '/home/vagrant/certs'
+  - { name: counters, props: '{"props":{"datatype":"counter"}}' }
+  - { name: maps, props: '{"props":{"datatype":"map"}}' }
+  - { name: sets, props: '{"props":{"datatype":"set"}}' }
+  - { name: other_counters, props: '{"props":{"datatype":"counter"}}' }
 
-  riak_conf:
-    buckets-default-allow_mult: 'true'
-    check_crl:                  'off'
-    listener-http-internal:     '127.0.0.1:8098'
-    listener-protobuf-internal: '127.0.0.1:8087'
-    ssl-certfile:               '{{ it_cert_path }}/server.crt'
-    ssl-keyfile:                '{{ it_cert_path }}/server.key'
-    ssl-cacertfile:             '{{ it_cert_path }}/ca.crt'
-    storage_backend:            'memory'
-    tls_protocols-tlsv1-1:      'on'
+  - { name: search_type, props: '{"props":{}}' }
+  - { name: yokozuna, props: '{"props":{}}' }
+
+  - { name: leveldb_type, props: '{"props":{"backend":"leveldb_backend"}}' }
+  - { name: memory_type, props: '{"props":{"backend":"mem_backend"}}' }
+
+  - { name: write_once, props: '{"props":{"write_once":true}}' }
+
+  # PHP Testing Buckets
+  - { name: phptest_counters,  props: '{"props":{"datatype":"counter"}}' }
+  - { name: phptest_maps, props: '{"props":{"datatype":"map"}}' }
+  - { name: phptest_sets, props: '{"props":{"datatype":"set"}}' }
+  - { name: phptest_search, props: '{"props":{}}' }
+  - { name: phptest_leveldb, props: '{"props":{"backend":"leveldb_backend"}}' }
+
+riak_users:
+  - {user: 'riakuser', password: '', cert: ''}
+  - {user: 'riakpass', password: 'Test1234', cert: ''}
+
+riak_sources:
+  - {user: 'riakuser', type: 'certificate', cidr: '0.0.0.0/0'}
+  - {user: 'riakpass', type: 'password', cidr: '0.0.0.0/0'}
+
+riak_grants:
+  - {subject: 'riakuser', bucket_type: 'certificate', bucket: '', permissions: '{{ it_permissions|join(",")}}'}
+  - {subject: 'riakpass', bucket_type: 'password', bucket: '', permissions: '{{ it_permissions|join(",")}}'}
+
+riak_conf:
+  multi_backend-default: 'bitcask_backend'
+
+  multi_backend-bitcask_backend-storage_backend:    'bitcask'
+  multi_backend-bitcask_backend-bitcask-data_root:  '{{ it_data_dir }}/bitcask'
+  multi_backend-bitcask_backend-bitcask-io_mode:    'erlang'
+
+  multi_backend-leveldb_backend-storage_backend:                'leveldb'
+  multi_backend-leveldb_backend-leveldb-data_root:              '{{ it_data_dir }}/leveldb'
+  multi_backend-leveldb_backend-leveldb-maximum_memory-percent: '30'
+
+  multi_backend-mem_backend-storage_backend:                      'memory'
+  multi_backend-mem_backend-memory_backend-ttl:                   '10s'
+  multi_backend-mem_backend-memory_backend-max_memory_per_vnode:  '4MB'
+
+  search:           'on'
+  storage_backend:  'multi'
+
+  ssl-certfile:     '{{ it_certs_dir }}/certs/riak-test-cert.pem'
+  ssl-keyfile:      '{{ it_certs_dir }}/private/riak-test-cert.pem'
+  ssl-cacertfile:   '{{ it_certs_dir }}/certs/cacert.pem'
