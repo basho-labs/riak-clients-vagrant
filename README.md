@@ -13,4 +13,4 @@ Installation:
 - Run `vagrant up`.
 
 Troubleshooting:
-- If during initial boot (vagrant up), it complains about not being able to update virtualbox-extensions on the vm, ssh into the vm using `vagrant ssh` and then update the vm's packages and kernel with command 'sudo yum update -y'. Then `exit` your ssh session and run `vagrant reload` to reload the guest with the file shares.
+- If any errors occur during initial boot, `vagrant up`, try running `vagrant ssh -c 'sudo yum -y update'`, then `vagrant reload`, and finally `vagrant provision`.

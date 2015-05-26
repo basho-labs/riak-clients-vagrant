@@ -6,7 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "chef/centos-6.5"
+  config.vm.box = "chef/centos-7.1"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -23,9 +23,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   - Only needed if you are going to run multiple Vagrant Instances of Guest VMs
   #config.vm.network :forwarded_port, guest: 22, host: 4545
 
-  # Riak Ports
-  config.vm.network :forwarded_port, guest: 8087, host: 17017
-  config.vm.network :forwarded_port, guest: 8098, host: 17018
+  # Riak Ports - HTTP, HTTPS, PB
+  config.vm.network :forwarded_port, guest: 8087, host: 8087
+  config.vm.network :forwarded_port, guest: 10011, host: 10011
+  config.vm.network :forwarded_port, guest: 8098, host: 8098
 
   config.vm.network "public_network", ip: "192.168.29.51", bridge: 'en0: Wi-Fi (AirPort)'
 

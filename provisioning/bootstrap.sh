@@ -9,15 +9,11 @@ printf '
 ##                                                                                  ##
 ######################################################################################'
 
-# centos 6
-#wget https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+# install EPEL repo
+sudo yum -y install epel-release
 
-# centos 7
-wget https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-
-# install EPEL repository and update
-sudo yum -y install epel-release-*.noarch.rpm
-sudo yum -y update
+#sudo yum -y update
+sudo yum -y update yum sudo wget curl openssh pcre
 
 # install ansible
 sudo yum -y install ansible
@@ -26,8 +22,7 @@ sudo yum -y install ansible
 sudo echo localhost > /etc/ansible/hosts
 
 # install galaxy roles
-#sudo ansible-galaxy install basho.riak
-sudo ansible-galaxy install rvm_io.rvm1-ruby
+sudo ansible-galaxy install basho.riak rvm_io.rvm1-ruby --ignore-errors
 
 printf '
 ######################################################################################
