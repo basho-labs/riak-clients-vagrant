@@ -2,7 +2,7 @@
 dev:            'false'
 
 it_certs_dir:   '/vagrant/tools/test-ca'
-it_permissions: 
+it_permissions:
   - riak_kv.get
   - riak_kv.put
   - riak_kv.delete
@@ -17,6 +17,20 @@ it_permissions:
   - search.query
 
 it_data_dir: '/var/lib/riak'
+
+riak_conf_template: '{{ playbook_dir }}/roles/integration_testing/templates/riak.conf.j2'
+
+riak_search:  'on'
+riak_backend: 'multi'
+
+it_ssl_certfile:    '{{ it_certs_dir }}/certs/riak-test-cert.pem'
+it_ssl_keyfile:     '{{ it_certs_dir }}/private/riak-test-key.pem'
+it_ssl_cacertfile:  '{{ it_certs_dir }}/certs/cacert.pem'
+
+it_https_bind_ip: 0.0.0.0
+it_https_port:    10011
+
+riak_node_name: 'riak@127.0.0.1'
 
 # setup Riak environment (bucket-types, users, sources, grants, conf)
 riak_bucket_types:
@@ -42,6 +56,13 @@ riak_bucket_types:
   - { name: phptest_search, props: '{"props":{}}' }
   - { name: phptest_leveldb, props: '{"props":{"backend":"leveldb_backend"}}' }
 
+  # Java Testing Buckets
+  - { name: jvtest_counters,  props: '{"props":{"datatype":"counter"}}' }
+  - { name: jvtest_maps, props: '{"props":{"datatype":"map"}}' }
+  - { name: jvtest_sets, props: '{"props":{"datatype":"set"}}' }
+  - { name: jvtest_yz_search, props: '{"props":{}}' }
+  - { name: jvtest_test_type, props: '{"props":{"backend":"leveldb_backend"}}' }
+
 riak_users:
   - {user: 'riakuser', password: '', cert: ''}
   - {user: 'riakpass', password: 'Test1234', cert: ''}
@@ -51,27 +72,5 @@ riak_sources:
   - {user: 'riakpass', type: 'password', cidr: '0.0.0.0/0'}
 
 riak_grants:
-  - {subject: 'riakuser', bucket_type: 'certificate', bucket: '', permissions: '{{ it_permissions|join(",")}}'}
-  - {subject: 'riakpass', bucket_type: 'password', bucket: '', permissions: '{{ it_permissions|join(",")}}'}
-
-riak_conf:
-  multi_backend-default: 'bitcask_backend'
-
-  multi_backend-bitcask_backend-storage_backend:    'bitcask'
-  multi_backend-bitcask_backend-bitcask-data_root:  '{{ it_data_dir }}/bitcask'
-  multi_backend-bitcask_backend-bitcask-io_mode:    'erlang'
-
-  multi_backend-leveldb_backend-storage_backend:                'leveldb'
-  multi_backend-leveldb_backend-leveldb-data_root:              '{{ it_data_dir }}/leveldb'
-  multi_backend-leveldb_backend-leveldb-maximum_memory-percent: '30'
-
-  multi_backend-mem_backend-storage_backend:                      'memory'
-  multi_backend-mem_backend-memory_backend-ttl:                   '10s'
-  multi_backend-mem_backend-memory_backend-max_memory_per_vnode:  '4MB'
-
-  search:           'on'
-  storage_backend:  'multi'
-
-  ssl-certfile:     '{{ it_certs_dir }}/certs/riak-test-cert.pem'
-  ssl-keyfile:      '{{ it_certs_dir }}/private/riak-test-cert.pem'
-  ssl-cacertfile:   '{{ it_certs_dir }}/certs/cacert.pem'
+  - {subject: 'riakuser', container: 'any', permissions: '{{ it_permissions|join(",")}}'}
+  - {subject: 'riakpass', container: 'any', permissions: '{{ it_permissions|join(",")}}'}

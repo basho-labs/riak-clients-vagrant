@@ -19,7 +19,7 @@ sudo yum -y update yum sudo wget curl openssh pcre
 sudo yum -y install ansible
 
 # setup the local machine as the host
-sudo echo localhost > /etc/ansible/hosts
+sudo echo riak-test > /etc/ansible/hosts
 
 # install galaxy roles
 sudo ansible-galaxy install basho.riak rvm_io.rvm1-ruby --ignore-errors

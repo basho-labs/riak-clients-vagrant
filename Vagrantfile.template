@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Networking / Port Forwarding
   ##########################################################################
   # Guest VM's hostname
-  config.vm.hostname = "localhost"
+  config.vm.hostname = "riak-test"
 
   # SSH port
   #   - Only needed if you are going to run multiple Vagrant Instances of Guest VMs
