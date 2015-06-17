@@ -508,7 +508,7 @@ tls_protocols.tlsv1.1 = {{ it_tlsv11 | default('on') }}
 tls_protocols.tlsv1.2 = {{ it_tlsv12 | default('on') }}
 check_crl = {{ it_check_crl | default('off') }}
 
-multi_backend.default = bitcask_backend
+multi_backend.default = leveldb_backend
 
 multi_backend.bitcask_backend.storage_backend = bitcask
 multi_backend.bitcask_backend.bitcask.data_root = \$(platform_data_dir)/bitcask
