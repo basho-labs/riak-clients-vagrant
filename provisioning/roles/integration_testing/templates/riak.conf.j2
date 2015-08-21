@@ -511,11 +511,11 @@ check_crl = {{ it_check_crl | default('off') }}
 multi_backend.default = leveldb_backend
 
 multi_backend.bitcask_backend.storage_backend = bitcask
-multi_backend.bitcask_backend.bitcask.data_root = \$(platform_data_dir)/bitcask
+multi_backend.bitcask_backend.bitcask.data_root = $(platform_data_dir)/bitcask
 multi_backend.bitcask_backend.bitcask.io_mode = erlang
 
 multi_backend.leveldb_backend.storage_backend = leveldb
-multi_backend.leveldb_backend.leveldb.data_root = \$(platform_data_dir)/leveldb
+multi_backend.leveldb_backend.leveldb.data_root = $(platform_data_dir)/leveldb
 multi_backend.leveldb_backend.leveldb.maximum_memory.percent = 30
 
 multi_backend.mem_backend.storage_backend = memory

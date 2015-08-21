@@ -54,14 +54,14 @@ riak_bucket_types:
   - { name: phptest_maps, props: '{"props":{"datatype":"map"}}' }
   - { name: phptest_sets, props: '{"props":{"datatype":"set"}}' }
   - { name: phptest_search, props: '{"props":{}}' }
-  - { name: phptest_leveldb, props: '{"props":{"backend":"leveldb_backend"}}' }
+  - { name: phptest_leveldb, props: '{"props":{}}' }
 
   # Java Testing Buckets
   - { name: jvtest_counters,  props: '{"props":{"datatype":"counter"}}' }
   - { name: jvtest_maps, props: '{"props":{"datatype":"map"}}' }
   - { name: jvtest_sets, props: '{"props":{"datatype":"set"}}' }
   - { name: jvtest_yz_search, props: '{"props":{}}' }
-  - { name: jvtest_test_type, props: '{"props":{"backend":"leveldb_backend"}}' }
+  - { name: jvtest_test_type, props: '{"props":{}}' }
 
 riak_users:
   - {user: 'riakuser', password: '', cert: ''}
