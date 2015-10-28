@@ -6,7 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "chef/centos-7.1"
+  config.vm.box = "bento/centos-7.1"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -27,6 +27,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 8087, host: 8087
   config.vm.network :forwarded_port, guest: 10011, host: 10011
   config.vm.network :forwarded_port, guest: 8098, host: 8098
+
+  # Zend PHP Server - 10081 & 10082
+  config.vm.network :forwarded_port, guest: 10081, host: 10081
+  config.vm.network :forwarded_port, guest: 10082, host: 10082
 
   config.vm.network "public_network", ip: "192.168.29.51", bridge: 'en0: Wi-Fi (AirPort)'
 
