@@ -7,7 +7,7 @@
     - ruby
     #- { role: christophermancini.php, tags: php }
     #- { role: christophermancini.pyenv, tags: python }
-    - { role: integration_testing, dev: true }
+    - { role: integration_testing, dev: false }
   vars:
     # the vars section is used to pick the settings you want for your local environment
     # see roles/{role_name}/defaults/main.yml for settings you can override

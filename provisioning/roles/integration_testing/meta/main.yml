@@ -1,4 +1,4 @@
 ---
 dependencies:
-  #- { role: basho.riak, tags: ["riak"], when: not dev }
-  - { role: basho.riak-dev, tags: ["riak"], when: dev }
+  - { role: christophermancini.riak-kv, tags: ["riak"], when: not dev }
+  #- { role: basho.riak-dev, tags: ["riak"], when: dev }
