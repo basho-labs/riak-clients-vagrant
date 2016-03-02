@@ -52,7 +52,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Code checkouts directory
   #   - If you want to share your code from a different directory, replace
   #     "../code/" with the path of where your current code is
-  config.vm.synced_folder "../code/", "/var/www", mount_options: ["dmode=777,fmode=777"]
+  config.vm.synced_folder "../code/", "/home/vagrant/code", mount_options: ["dmode=777,fmode=777"]
 
   # General files directory
   #   - Useful to provide access to misc files between the Host and Guest machines
