@@ -18,6 +18,7 @@
     - openssl-devel
     - pam-devel
     - patch
+    - protobuf-devel
     - readline
     - readline-devel
     - vim
