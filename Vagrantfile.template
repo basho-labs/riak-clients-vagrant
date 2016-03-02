@@ -29,10 +29,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 8098, host: 8098
 
   # Zend PHP Server - 10081 & 10082
-  config.vm.network :forwarded_port, guest: 10081, host: 10081
-  config.vm.network :forwarded_port, guest: 10082, host: 10082
+  #config.vm.network :forwarded_port, guest: 10081, host: 10081
+  #config.vm.network :forwarded_port, guest: 10082, host: 10082
 
-  config.vm.network "public_network", ip: "192.168.29.51", bridge: 'en0: Wi-Fi (AirPort)'
+  # The following is useful if you want to make your VM accessible on the local network
+  # You have to specify the static IP for the network and the NIC it will be using from the host machine.
+  #config.vm.network "public_network", ip: "192.168.29.51", bridge: 'en0: Wi-Fi (AirPort)'
 
   ##########################################################################
   # File Sharing
@@ -64,7 +66,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #  then executes /vagrant/provisioning/playbook.yml to provision your Guest.
   #   - This script is kicked off upon the initial "vagrant up" command issued on this vagrant instance
   #     and then only when the "vagrant provision" command is issued on this instance
-  # config.vm.provision "shell", path: "provisioning/bootstrap.sh"
+  config.vm.provision "shell", path: "provisioning/bootstrap.sh"
 
   ##########################################################################
   # VirtualBox Guest Virtual Machine Configuaration
@@ -78,7 +80,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Name used within VirtualBox application for this Guest VM.
     #   - Change in the event of conflicts (e.g. running more than one Guest VM using the same Vagrant config)
-    v.name = "vagrant-riak"
+    v.name = "vagrant-riak-clients"
 
     # Enables a GUI for your Guest VM. Useful for troubleshooting.
     #   - The default is false
