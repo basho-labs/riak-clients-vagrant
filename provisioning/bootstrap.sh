@@ -27,7 +27,7 @@ sudo yum -y install ansible
 sudo echo riak-test > /etc/ansible/hosts
 
 # install galaxy roles
-sudo ansible-galaxy install basho-labs.riak-kv rvm_io.rvm1-ruby --ignore-errors
+sudo ansible-galaxy install basho-labs.riak-kv rvm_io.rvm1-ruby geerlingguy.php geerlingguy.composer joshualund.golang --ignore-errors
 
 printf '
 ######################################################################################

@@ -1,0 +1,7 @@
+---
+erlang_version: git git://github.com/basho/otp.git OTP_R16B02_basho10
+erlang_version_tag: R16B02-basho10
+erlang_kerl_kerlrc_dir: /home/vagrant
+erlang_kerl_kerlrc_owner: vagrant
+erlang_kerl_kerlrc_template: '{{ playbook_dir }}/roles/riak-dev/templates/kerlrc.j2'
+erlang_kerl_configure_options: "--disable-hipe  --enable-smp-support --enable-threads --enable-kernel-poll --without-odbc --with-ssl=/usr/lib64/"

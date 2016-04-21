@@ -4,9 +4,7 @@
   roles:
     # comment out the environments you don't want
     - php
-    - ruby
-    #- { role: christophermancini.php, tags: php }
-    #- { role: christophermancini.pyenv, tags: python }
+    #- ruby
     - { role: integration_testing, dev: false }
   vars:
     # the vars section is used to pick the settings you want for your local environment
@@ -20,17 +18,3 @@
 
     # default version for 'ruby' command
     rvm1_default_ruby_version: ruby-2.0
-
-    pyenv_python_versions:
-      - 2.6.9
-      - 2.7.9
-      - 3.3.6
-      - 3.4.2
-
-    phpenv_php_versions:
-      - "5.4"
-      - "5.5"
-      - "5.6"
-
-    riak_conf:
-      search: 'on'
