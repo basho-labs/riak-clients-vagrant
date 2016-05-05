@@ -1,6 +1,7 @@
 ---
 - name: install utilities and dependencies
   package: name={{ item }} state=present
+  become: yes
   with_items:
     - autoconf
     - automake
@@ -29,12 +30,14 @@
 # Install mercurial and config
 - name: Install versioning software
   package: name={{ item }} state=present
+  become: yes
   with_items:
     - git
     - mercurial
 
 - name: setup ntpdate cron
   cron: name="NTP Updater" minute="0" job="/usr/sbin/ntpdate -us clock.isc.org"
+  become: yes
 
 # CentOS 6.5
 #- name: Make sure iptables is stopped / disabled

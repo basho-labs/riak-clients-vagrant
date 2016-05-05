@@ -3,18 +3,14 @@
   sudo: true
   roles:
     # comment out the environments you don't want
-    - php
-    #- ruby
-    - { role: integration_testing, dev: false }
+
+    # php
+    - { role: geerlingguy.php }
+    - { role: geerlingguy.composer }
+
+    # riak configuration for integration tests by the clients
+    - { role: integration_testing }
+
   vars:
     # the vars section is used to pick the settings you want for your local environment
     # see roles/{role_name}/defaults/main.yml for settings you can override
-
-    # what versions of ruby to install
-    rvm1_rubies:
-      - ruby-1.9
-      - ruby-2.0
-      - ruby-2.1
-
-    # default version for 'ruby' command
-    rvm1_default_ruby_version: ruby-2.0
