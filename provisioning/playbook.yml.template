@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
-  sudo: true
+  become: yes
+  become_method: sudo
   roles:
     # comment out the environments you don't want
 
@@ -14,3 +15,17 @@
   vars:
     # the vars section is used to pick the settings you want for your local environment
     # see roles/{role_name}/defaults/main.yml for settings you can override
+
+    #riak_package: riak-ts
+
+    php_packages:
+      - php
+      - php-cli
+      - php-common
+      - php-devel
+      - php-gd
+      - php-mbstring
+      - php-pdo
+      - php-pear
+      - php-pecl-xdebug
+      - php-xml
