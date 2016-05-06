@@ -36,7 +36,7 @@ printf '
 ##                                                                                  ##
 ######################################################################################'
 
-sudo ansible-playbook /vagrant/provisioning/playbook.yml --connection=local
+ansible-playbook /vagrant/provisioning/playbook.yml --connection=local
 
 printf '
 ######################################################################################

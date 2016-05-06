@@ -1,0 +1,50 @@
+---
+riak_conf_template: '{{ playbook_dir }}/roles/integration_testing/templates/riak.conf.j2'
+
+riak_search:  'on'
+riak_backend: 'multi'
+
+riak_node_name: 'riak@127.0.0.1'
+
+# setup Riak environment (bucket-types, users, sources, grants, conf)
+riak_bucket_types:
+  - { name: plain, props: '{"props":{}}' }
+
+  - { name: counters, props: '{"props":{"datatype":"counter"}}' }
+  - { name: maps, props: '{"props":{"datatype":"map"}}' }
+  - { name: sets, props: '{"props":{"datatype":"set"}}' }
+  - { name: other_counters, props: '{"props":{"datatype":"counter"}}' }
+
+  - { name: search_type, props: '{"props":{}}' }
+  - { name: yokozuna, props: '{"props":{}}' }
+
+  - { name: leveldb_type, props: '{"props":{"backend":"leveldb_backend"}}' }
+  - { name: memory_type, props: '{"props":{"backend":"mem_backend"}}' }
+
+  - { name: write_once, props: '{"props":{"write_once":true}}' }
+
+  # PHP Testing Buckets
+  - { name: phptest_counters,  props: '{"props":{"datatype":"counter"}}' }
+  - { name: phptest_maps, props: '{"props":{"datatype":"map"}}' }
+  - { name: phptest_sets, props: '{"props":{"datatype":"set"}}' }
+  - { name: phptest_search, props: '{"props":{}}' }
+  - { name: phptest_leveldb, props: '{"props":{}}' }
+
+  # Java Testing Buckets
+  - { name: jvtest_counters,  props: '{"props":{"datatype":"counter"}}' }
+  - { name: jvtest_maps, props: '{"props":{"datatype":"map"}}' }
+  - { name: jvtest_sets, props: '{"props":{"datatype":"set"}}' }
+  - { name: jvtest_yz_search, props: '{"props":{}}' }
+  - { name: jvtest_test_type, props: '{"props":{}}' }
+
+riak_users:
+  - {user: 'riakuser', password: '', cert: ''}
+  - {user: 'riakpass', password: 'Test1234', cert: ''}
+
+riak_sources:
+  - {user: 'riakuser', type: 'certificate', cidr: '0.0.0.0/0'}
+  - {user: 'riakpass', type: 'password', cidr: '0.0.0.0/0'}
+
+riak_grants:
+  - {subject: 'riakuser', container: 'any', permissions: '{{ it_permissions|join(",")}}'}
+  - {subject: 'riakpass', container: 'any', permissions: '{{ it_permissions|join(",")}}'}
