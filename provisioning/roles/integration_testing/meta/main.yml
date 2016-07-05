@@ -2,3 +2,4 @@
 dependencies:
   - { role: common }
   - { role: basho-labs.riak-kv, tags: ["riak"]}
+  #- { role: christophermancini.riak-kv-dev, tags: ["riak"]}

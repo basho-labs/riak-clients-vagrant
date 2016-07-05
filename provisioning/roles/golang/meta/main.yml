@@ -1,4 +1,4 @@
 ---
 dependencies:
   - { role: common }
-  - { role: geerlingguy.java }
+  - { role: joshualund.golang }
