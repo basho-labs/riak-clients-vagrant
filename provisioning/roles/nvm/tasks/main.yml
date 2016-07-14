@@ -1,0 +1,24 @@
+---
+- name: Copy the install shell script
+  copy: src=install.sh dest=/tmp/nvm_install.sh owner=vagrant group=vagrant mode=ug+rwx
+
+- name: Run NVM installer
+  command: '/tmp/nvm_install.sh'
+  become: false
+
+- name: Install node versions
+  shell: 'source $HOME/.bash_profile'
+  become: false
+
+#- name: Install node versions
+#  shell: '$HOME/.nvm/nvm.sh install v{{ item }}'
+#  with_items: '{{ nvm_versions }}'
+#  become: false
+
+#- name: Use default version
+#  shell: 'nvm use v{{ nvm_version_default }}'
+#  become: false
+
+#- name: Set alias for default version
+#  shell: 'nvm alias default v{{ nvm_version_default }}'
+#  become: false

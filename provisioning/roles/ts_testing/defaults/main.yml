@@ -1,0 +1,26 @@
+---
+dev:            'false'
+
+it_certs_dir:   '/vagrant/tools/test-ca'
+it_permissions:
+  - riak_kv.get
+  - riak_kv.put
+  - riak_kv.delete
+  - riak_kv.index
+  - riak_kv.list_keys
+  - riak_kv.list_buckets
+  - riak_core.get_bucket
+  - riak_core.set_bucket
+  - riak_core.get_bucket_type
+  - riak_core.set_bucket_type
+  - search.admin
+  - search.query
+
+it_data_dir: '/var/lib/riak'
+
+it_ssl_certfile:    '{{ it_certs_dir }}/certs/riak-test-cert.pem'
+it_ssl_keyfile:     '{{ it_certs_dir }}/private/riak-test-key.pem'
+it_ssl_cacertfile:  '{{ it_certs_dir }}/certs/cacert.pem'
+
+it_https_bind_ip: 0.0.0.0
+it_https_port:    10011

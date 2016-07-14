@@ -1,0 +1,4 @@
+---
+  nvm_versions:
+    - 0.12
+  nvm_version_default: 0.12

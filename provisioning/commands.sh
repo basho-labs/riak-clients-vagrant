@@ -20,7 +20,7 @@ composer update
 ./vendor/bin/phpunit
 
 # Go
-cd ~/code/riak-go-client
+cd ~/code/go/src/github.com/basho/riak-go-client/
 "host" go get -u -v
 go test -v -tags=integration
 

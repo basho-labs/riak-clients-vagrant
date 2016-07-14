@@ -4,28 +4,13 @@
   become_method: sudo
   roles:
     # comment out the environments you don't want
-
-    # php
-    - { role: geerlingguy.php }
-    - { role: geerlingguy.composer }
-
-    # riak configuration for integration tests by the clients
-    - { role: integration_testing }
-
+    - { role: php }
+    - { role: golang }
+    - { role: java }
+    - { role: nvm }
+    - { role: ruby }
+    #- { role: kv_testing }
+    - { role: ts_testing }
   vars:
     # the vars section is used to pick the settings you want for your local environment
     # see roles/{role_name}/defaults/main.yml for settings you can override
-
-    #riak_package: riak-ts
-
-    php_packages:
-      - php
-      - php-cli
-      - php-common
-      - php-devel
-      - php-gd
-      - php-mbstring
-      - php-pdo
-      - php-pear
-      - php-pecl-xdebug
-      - php-xml

@@ -14,11 +14,6 @@ sudo yum -y install epel-release deltarpm
 
 # install all updates except kernel updates (creates compatability problems with VBox Guest Additions)
 yum -y -x 'kernel*' update
-#sudo yum -y update yum sudo wget curl openssh pcre
-
-# make sure we have kernel dev tools
-#sudo yum -y install kernel-devel-$(uname -r)
-#sudo yum -y install kernel-headers-$(uname -r)
 
 # install ansible
 sudo yum -y install ansible
@@ -27,7 +22,7 @@ sudo yum -y install ansible
 sudo echo riak-test > /etc/ansible/hosts
 
 # install galaxy roles
-sudo ansible-galaxy install basho-labs.riak-kv geerlingguy.php geerlingguy.composer joshualund.golang geerlingguy.java --ignore-errors
+sudo ansible-galaxy install basho-labs.riak-kv geerlingguy.php geerlingguy.composer joshualund.golang geerlingguy.java geerlingguy.repo-remi geerlingguy.nodejs rvm_io.rvm1-ruby --ignore-errors
 
 printf '
 ######################################################################################

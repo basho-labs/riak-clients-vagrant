@@ -1,5 +1,5 @@
 ---
-#php_enablerepo: "remi,remi-php70"
+php_enablerepo: "remi,remi-php70"
 php_packages:
     - php
     - php-cli
