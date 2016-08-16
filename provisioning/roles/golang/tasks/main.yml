@@ -1,3 +1,0 @@
----
-- name: Set GOPATH
-  lineinfile: dest=/home/vagrant/.bash_profile line="export GOPATH={{ golang_gopath }}"

@@ -1,6 +1,0 @@
----
-- name: Set RIAK_PORT on vagrant user for tests
-  lineinfile: dest=/home/vagrant/.bash_profile line="export RIAK_PORT={{ riak_pb_port }}"
-
-- name: Set RIAK_HTTP_PORT on vagrant user for tests
-  lineinfile: dest=/home/vagrant/.bash_profile line="export RIAK_HTTP_PORT={{ riak_http_port }}"

@@ -1,9 +1,0 @@
----
-  # what versions of ruby to install, last is default
-  #rvm1_rubies:
-  #  - ruby-2.1.3
-
-  # default version for 'ruby' command
-  #rvm1_install_flags: '--auto-dotfiles --user-install'
-  #rvm1_install_path: '/home/vagrant/.rvm'
-  rvm1_user: 'vagrant'

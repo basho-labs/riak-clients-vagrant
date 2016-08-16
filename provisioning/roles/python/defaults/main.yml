@@ -1,7 +1,0 @@
----
-  # versions of python to install
-  python_versions:
-    - 2.6.9
-    - 2.7.8
-    - 3.3.6
-    - 3.4.2

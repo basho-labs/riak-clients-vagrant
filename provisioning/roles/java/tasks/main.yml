@@ -1,3 +1,0 @@
----
-- name: Install maven
-  package: name=maven state=present
