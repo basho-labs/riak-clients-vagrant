@@ -21,6 +21,9 @@ sudo yum -y install ansible
 # setup the local machine as the ansible host
 sudo echo riak-test > /etc/ansible/hosts
 
+# setup ansible to look in our roles repo for roles
+sudo sed -i -s 's/^\#roles_path    \= \/etc\/ansible\/roles/roles_path = \/etc\/ansible\/roles:\/vagrant\/ansible-roles/' /etc/ansible/ansible.cfg
+
 # install galaxy roles
 sudo ansible-galaxy install basho-labs.riak-kv geerlingguy.php geerlingguy.composer joshualund.golang geerlingguy.java geerlingguy.repo-remi geerlingguy.nodejs rvm_io.rvm1-ruby --ignore-errors
 
@@ -31,7 +34,7 @@ printf '
 ##                                                                                  ##
 ######################################################################################'
 
-#ansible-playbook /vagrant/provisioning/playbook.yml --connection=local
+ansible-playbook /vagrant/provisioning/playbook.yml --connection=local
 
 printf '
 ######################################################################################
