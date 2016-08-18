@@ -3,14 +3,30 @@
   become: yes
   become_method: sudo
   roles:
-    # comment out the environments you don't want
-    - { role: php }
-    - { role: golang }
-    - { role: java }
-    - { role: nvm }
-    - { role: ruby }
-    #- { role: kv_testing }
-    - { role: ts_testing }
+    # Uncomment the roles / environments you want to provision
+
+    # Following client environments are only needed if NOT using the `client_smoke_tests` role
+    #- { role: php }
+    #- { role: golang }
+    #- { role: java }
+    #- { role: nvm }
+    #- { role: ruby }
+
+    # Ansible Riak role is only needed if NOT using the kv_testing or ts_testing roles below or you are testing changes to the role
+    #- { role: basho-labs.riak-kv, tags: ["riak"]}
+    #- { role: basho-labs.riak-kv.dev, tags: ["riak"]}
+
+    # One of the following roles needs to be uncommented to configure Riak client library integration tests
+    - { role: kv_testing }
+    #- { role: ts_testing }
+
+    # `client_smoke_tests` executes end to end smoke tests by automatically:
+    #   * configuring client environments
+    #   * checking out the latest release for each client library to /tmp/client-libraries on remote machine
+    #   * fetches client library dependencies
+    #   * executes client library integration tests
+    #   * logs any failures to /var/log/client_smoke_tests/ on the local machine
+    - { role: client_smoke_tests }
   vars:
     # the vars section is used to pick the settings you want for your local environment
     # see roles/{role_name}/defaults/main.yml for settings you can override
