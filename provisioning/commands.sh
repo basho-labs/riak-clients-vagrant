@@ -31,3 +31,5 @@ mvn clean install -Pitest -Dcom.basho.riak.2i=true -Dcom.basho.riak.yokozuna=tru
 # Node
 cd ~/code/riak-nodejs-client
 
+curl riak-test:8098/ping
+curl 127.0.0.1:8098/ping

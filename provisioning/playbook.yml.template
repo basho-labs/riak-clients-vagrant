@@ -16,9 +16,8 @@
     #- { role: basho-labs.riak-kv, tags: ["riak"]}
     #- { role: basho-labs.riak-kv.dev, tags: ["riak"]}
 
-    # One of the following roles needs to be uncommented to configure Riak client library integration tests
-    - { role: kv_testing }
-    #- { role: ts_testing }
+    # Configures Riak for client library tests
+    - { role: riak_testing }
 
     # `client_smoke_tests` executes end to end smoke tests by automatically:
     #   * configuring client environments
@@ -27,6 +26,13 @@
     #   * executes client library integration tests
     #   * logs any failures to /var/log/client_smoke_tests/ on the local machine
     - { role: client_smoke_tests }
+  vars_files:
+    # Uncomment any of the following that you intend to test
+    #- vars/security.yml
+    #- vars/timeseries.yml
   vars:
     # the vars section is used to pick the settings you want for your local environment
     # see roles/{role_name}/defaults/main.yml for settings you can override
+
+    # Uncomment following line to use alternate package
+    #riak_package: https://s3.amazonaws.com/downloads.basho.com/riak_ts/1.4/1.4.0rc7/rhel/7/riak-ts-1.4.0rc7-1.el7.centos.x86_64.rpm
