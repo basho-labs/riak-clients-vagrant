@@ -2,5 +2,5 @@
 .vagrant
 Vagrantfile
 playbook.yml
-playbook.retry
+*.retry
 provisioning/roles/basho-labs.riak-kv.dev
