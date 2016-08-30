@@ -13,13 +13,14 @@
       }
     #- { role: client_smoke_tests }
   vars:
-    riak_package: 'riak-ts-1.3.1-1.el7.centos.x86_64.rpm'
+    riak_package: 'riak-ts'
+    #riak_package: 'riak-ts-1.3.1'
     #riak_package: https://github.com/basho/internal_wiki/wiki/Riak-TS-1.4.0rc9-Release
     riak_shell_group: 'riak-ts'
     ct_cmd: cmdts
 
     riak_search:  'on'
-#    riak_backend: 'multi'
+    riak_backend: 'leveldb'
     riak_pb_bind_ip: 127.0.0.1
 
     # setup Riak environment (bucket-types, users, sources, grants, conf)
