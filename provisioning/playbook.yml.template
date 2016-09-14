@@ -4,6 +4,7 @@
   become_method: sudo
   roles:
     # Uncomment the roles / environments you want to provision
+    - { role: common }
 
     # Following client environments are only needed if NOT using the `client_smoke_tests` role
     #- { role: php }
@@ -11,13 +12,16 @@
     #- { role: java }
     #- { role: nvm }
     #- { role: ruby }
+    #- { role: dotnet }
 
-    # Ansible Riak role is only needed if NOT using the kv_testing or ts_testing roles below or you are testing changes to the role
-    #- { role: basho-labs.riak-kv, tags: ["riak"]}
-    #- { role: basho-labs.riak-kv.dev, tags: ["riak"]}
-
-    # Configures Riak for client library tests
-    - { role: riak_testing }
+    # `riak_testing` configures Riak for client library tests
+    #   * `riak_conf_template` - the Ansible Riak role tempalte is overridden here
+    #   * `riak_node_name` -
+    - {
+        role: riak_testing,
+        riak_conf_template: '/vagrant/ansible-roles/riak_testing/templates/riak.conf.j2',
+        riak_node_name: "riak@127.0.0.1"
+      }
 
     # `client_smoke_tests` executes end to end smoke tests by automatically:
     #   * configuring client environments
@@ -26,13 +30,36 @@
     #   * executes client library integration tests
     #   * logs any failures to /var/log/client_smoke_tests/ on the local machine
     - { role: client_smoke_tests }
-  vars_files:
-    # Uncomment any of the following that you intend to test
-    #- vars/security.yml
-    #- vars/timeseries.yml
   vars:
     # the vars section is used to pick the settings you want for your local environment
     # see roles/{role_name}/defaults/main.yml for settings you can override
 
     # Uncomment following line to use alternate package
-    #riak_package: https://s3.amazonaws.com/downloads.basho.com/riak_ts/1.4/1.4.0rc7/rhel/7/riak-ts-1.4.0rc7-1.el7.centos.x86_64.rpm
+    #riak_package: https://github.com/basho/internal_wiki/wiki/Riak-TS-1.4.0rc9-Release
+
+    riak_search:  'on'
+    riak_backend: 'multi'
+    riak_pb_bind_ip: 127.0.0.1
+
+    # setup Riak environment (bucket-types, users, sources, grants, conf)
+    riak_bucket_types:
+      - { name: bitcask, props: '{"props":{"backend":"bitcask_backend"}}' }
+      - { name: counters, props: '{"props":{"datatype":"counter"}}' }
+      - { name: leveldb_type, props: '' }
+      - { name: maps, props: '{"props":{"datatype":"map"}}' }
+      - { name: memory_type, props: '{"props":{"backend":"mem_backend"}}' }
+      - { name: mr, props: '' }
+      - { name: no_siblings, props: '{"props":{"allow_mult":"false"}}' }
+      - { name: other_counters, props: '{"props":{"datatype":"counter"}}' }
+      - { name: plain, props: '' }
+      - { name: search_type, props: '' }
+      - { name: sets, props: '{"props":{"datatype":"set"}}' }
+      - { name: write_once, props: '{"props":{"write_once":true}}' }
+      - { name: yokozuna, props: '' }
+
+      # PHP Testing Buckets
+      - { name: phptest_counters,  props: '{"props":{"datatype":"counter"}}' }
+      - { name: phptest_leveldb, props: '' }
+      - { name: phptest_maps, props: '{"props":{"datatype":"map"}}' }
+      - { name: phptest_search, props: '' }
+      - { name: phptest_sets, props: '{"props":{"datatype":"set"}}' }
