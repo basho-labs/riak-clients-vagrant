@@ -3,7 +3,6 @@
   become: yes
   become_method: sudo
   roles:
-    # Uncomment the roles / environments you want to provision
     - { role: common }
 
     # Following client environments are only needed if NOT using the `client_smoke_tests` role
@@ -17,10 +16,12 @@
     # `riak_testing` configures Riak for client library tests
     #   * `riak_conf_template` - the Ansible Riak role tempalte is overridden here
     #   * `riak_node_name` -
+    #   * `riak_testing_nightlies` - is used to use a nightly build of Riak versus packages via the Ansible Galaxy role
     - {
         role: riak_testing,
+        #riak_testing_nightlies: true,
         riak_conf_template: '/vagrant/ansible-roles/riak_testing/templates/riak.conf.j2',
-        riak_node_name: "riak@127.0.0.1"
+        riak_node_name: "riak@127.0.0.1",
       }
 
     # `client_smoke_tests` executes end to end smoke tests by automatically:
@@ -29,7 +30,11 @@
     #   * fetches client library dependencies
     #   * executes client library integration tests
     #   * logs any failures to /var/log/client_smoke_tests/ on the local machine
-    - { role: client_smoke_tests }
+    #   * use ct_test_libs to limit the execution of client languages to the supplied list
+    - {
+        role: client_smoke_tests,
+        #ct_test_libs: ['php','go']
+      }
   vars:
     # the vars section is used to pick the settings you want for your local environment
     # see roles/{role_name}/defaults/main.yml for settings you can override
