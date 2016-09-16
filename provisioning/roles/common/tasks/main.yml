@@ -38,10 +38,3 @@
 - name: setup ntpdate cron
   cron: name="NTP Updater" minute="0" job="/usr/sbin/ntpdate -us clock.isc.org"
   become: yes
-
-# CentOS 6.5
-#- name: Make sure iptables is stopped / disabled
-#  service: name={{ item }} state=stopped enabled=no
-#  with_items:
-#    - iptables
-#    - ip6tables

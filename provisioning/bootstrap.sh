@@ -14,11 +14,6 @@ sudo yum -y install epel-release deltarpm
 
 # install all updates except kernel updates (creates compatability problems with VBox Guest Additions)
 yum -y -x 'kernel*' update
-#sudo yum -y update yum sudo wget curl openssh pcre
-
-# make sure we have kernel dev tools
-#sudo yum -y install kernel-devel-$(uname -r)
-#sudo yum -y install kernel-headers-$(uname -r)
 
 # install ansible
 sudo yum -y install ansible
@@ -26,8 +21,11 @@ sudo yum -y install ansible
 # setup the local machine as the ansible host
 sudo echo riak-test > /etc/ansible/hosts
 
+# setup ansible to look in our roles repo for roles
+sudo sed -i -s 's/^\#roles_path    \= \/etc\/ansible\/roles/roles_path = \/etc\/ansible\/roles:\/vagrant\/ansible-roles/' /etc/ansible/ansible.cfg
+
 # install galaxy roles
-sudo ansible-galaxy install basho-labs.riak-kv rvm_io.rvm1-ruby geerlingguy.php geerlingguy.composer joshualund.golang --ignore-errors
+sudo ansible-galaxy install basho-labs.riak-kv geerlingguy.php geerlingguy.composer joshualund.golang geerlingguy.java geerlingguy.repo-remi geerlingguy.nodejs geerlingguy.ruby --ignore-errors
 
 printf '
 ######################################################################################
@@ -36,7 +34,7 @@ printf '
 ##                                                                                  ##
 ######################################################################################'
 
-ansible-playbook /vagrant/provisioning/playbook.yml --connection=local
+#ansible-playbook /vagrant/provisioning/playbook.yml
 
 printf '
 ######################################################################################

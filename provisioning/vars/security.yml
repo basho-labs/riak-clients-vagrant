@@ -1,0 +1,23 @@
+---
+riak_testing_certs_dir: '/vagrant/tools/test-ca'
+
+riak_security_enabled:  true
+
+riak_users:
+  - {user: 'riakuser', password: '', cert: '', groups: ''}
+  - {user: 'riakpass', password: 'Test1234', cert: '', groups: ''}
+  - {user: 'riakadmin', password: '', cert: '', groups: 'admins'}
+  - {user: 'riakdeveloper', password: '', cert: '', groups: 'developers'}
+
+riak_groups:
+  - admins
+  - developers
+
+riak_sources:
+  - {user: 'riakuser', type: 'certificate', cidr: '0.0.0.0/0'}
+  - {user: 'riakpass', type: 'password', cidr: '0.0.0.0/0'}
+
+riak_grants:
+  - {subject: 'riakuser', scope: 'any', permissions: '{{ it_permissions|join(",")}}'}
+  - {subject: 'riakpass', scope: 'any', permissions: '{{ it_permissions|join(",")}}'}
+

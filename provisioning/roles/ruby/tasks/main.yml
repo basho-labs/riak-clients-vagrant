@@ -1,3 +1,0 @@
----
-#- name: Add rvm group to vagrant user
-#  user: name=vagrant shell=/bin/bash groups=rvm append=yes
