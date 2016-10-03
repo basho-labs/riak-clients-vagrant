@@ -10,16 +10,17 @@ printf '
 ######################################################################################'
 
 # install EPEL repo and allow deltarpms to save bandwidth
-sudo yum -y install epel-release deltarpm
+python -mplatform | grep -i Ubuntu && sudo apt-get install -y software-properties-common python-software-properties
+python -mplatform | grep -i Ubuntu && sudo add-apt-repository -y ppa:ansible/ansible || sudo yum -y install epel-release deltarpm
 
 # install all updates except kernel updates (creates compatability problems with VBox Guest Additions)
-yum -y -x 'kernel*' update
+python -mplatform | grep -i Ubuntu && sudo apt-get update -y || sudo yum -y -x 'kernel*' update
 
 # install ansible
-sudo yum -y install ansible
+python -mplatform | grep -i Ubuntu && sudo apt-get install -y ansible || sudo yum -y install ansible
 
 # setup the local machine as the ansible host
-sudo echo riak-test > /etc/ansible/hosts
+echo 'riak-test' | sudo tee -a /etc/ansible/hosts
 
 # setup ansible to look in our roles repo for roles
 sudo sed -i -s 's/^\#roles_path    \= \/etc\/ansible\/roles/roles_path = \/etc\/ansible\/roles:\/vagrant\/ansible-roles/' /etc/ansible/ansible.cfg

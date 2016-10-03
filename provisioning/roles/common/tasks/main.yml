@@ -8,32 +8,44 @@
     - bison
     - bzip2
     - curl
+    - git
+    - libtool
+    - mercurial
+    - ntpdate
+    - patch
+    - vim
+    - wget
+
+- name: install utilities and dependencies Debian
+  package: name={{ item }} state=present
+  become: yes
+  when: ansible_os_family == "Debian"
+  with_items:
+    - build-essential
+    - libffi-dev
+    - libssl-dev
+    - libyaml-dev
+    - libpam0g-dev
+    - libprotobuf-dev
+    - libreadline-dev
+    - zlib1g-dev
+
+- name: install utilities and dependencies RedHat
+  package: name={{ item }} state=present
+  become: yes
+  when: ansible_os_family == "RedHat"
+  with_items:
     - gcc
     - gcc-c++
     - glibc-devel
     - libffi-devel
-    - libtool
     - libyaml-devel
     - make
-    - ntpdate
     - openssl-devel
     - pam-devel
-    - patch
     - protobuf-devel
-    - readline
     - readline-devel
-    - vim
-    - wget
-    - zlib
     - zlib-devel
-
-# Install mercurial and config
-- name: Install versioning software
-  package: name={{ item }} state=present
-  become: yes
-  with_items:
-    - git
-    - mercurial
 
 - name: setup ntpdate cron
   cron: name="NTP Updater" minute="0" job="/usr/sbin/ntpdate -us clock.isc.org"
