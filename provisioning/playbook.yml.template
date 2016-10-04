@@ -9,7 +9,7 @@
     #- { role: php }
     #- { role: golang }
     #- { role: java }
-    #- { role: nvm }
+    #- { role: nodejs }
     #- { role: ruby }
     #- { role: dotnet }
 
@@ -40,7 +40,7 @@
     # see roles/{role_name}/defaults/main.yml for settings you can override
 
     # Uncomment following line to use alternate package
-    #riak_package: https://github.com/basho/internal_wiki/wiki/Riak-TS-1.4.0rc9-Release
+    #riak_package: 'https://s3.amazonaws.com/downloads.basho.com/basho-internal/riak/2.2/2.2.0rc4/rhel/7/riak-2.2.0rc4-1.el7.centos.x86_64.rpm'
 
     riak_search:  'on'
     riak_backend: 'multi'

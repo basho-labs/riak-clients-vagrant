@@ -4,14 +4,11 @@
   become_method: sudo
   roles:
     - { role: common }
-    - { role: php }
-    - { role: java }
-    - { role: golang }
     - {
         role: riak_testing,
         riak_node_name: "riak@127.0.0.1"
       }
-    #- { role: client_smoke_tests }
+    - { role: client_smoke_tests }
   vars:
     riak_package: 'riak-ts'
     #riak_package: 'riak-ts-1.3.1'
