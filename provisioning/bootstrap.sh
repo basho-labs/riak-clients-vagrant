@@ -26,7 +26,7 @@ echo 'riak-test' | sudo tee -a /etc/ansible/hosts
 sudo sed -i -s 's/^\#roles_path    \= \/etc\/ansible\/roles/roles_path = \/etc\/ansible\/roles:\/vagrant\/ansible-roles/' /etc/ansible/ansible.cfg
 
 # install galaxy roles
-sudo ansible-galaxy install basho-labs.riak-kv geerlingguy.php geerlingguy.composer joshualund.golang geerlingguy.java geerlingguy.repo-remi geerlingguy.nodejs geerlingguy.ruby --ignore-errors
+sudo ansible-galaxy install basho-labs.riak-kv geerlingguy.php geerlingguy.composer joshualund.golang geerlingguy.java geerlingguy.repo-remi geerlingguy.nodejs geerlingguy.ruby
 
 printf '
 ######################################################################################
@@ -35,16 +35,23 @@ printf '
 ##                                                                                  ##
 ######################################################################################'
 
-#ansible-playbook /vagrant/provisioning/playbook.yml
+if [ "$1" = "true" ]
+then
+    ansible-playbook /vagrant/provisioning/playbook.yml
+fi
 
 printf '
 ######################################################################################
 ##                                                                                  ##
 ##                          Provisioning complete!                                  ##
 ##                                                                                  ##
+## Useful commands:                                                                 ##
+##   - `vagrant ssh` login to your VM via ssh                                       ##
+##   - `vagrant provision` rerun this provisioner                                   ##
+##                                                                                  ##
 ## If you see red (error) above:                                                    ##
 ##   - Try vagrant destroy, then vagrant up again                                   ##
-##   - Copy and paste the error to https://gist.github.com/, then send me the link  ##
+##   - If you cannot resolve it, please copy / pasta the error to a GitHub Issue    ##
 ##                                                                                  ##
 ######################################################################################
 '
