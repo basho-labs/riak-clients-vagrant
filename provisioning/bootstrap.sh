@@ -10,7 +10,7 @@ printf '
 ######################################################################################'
 
 # install EPEL repo and allow deltarpms to save bandwidth
-python -mplatform | grep -i Ubuntu && sudo apt-get install -y software-properties-common python-software-properties
+python -mplatform | grep -i Ubuntu && sudo apt-get install -y software-properties-common python-software-properties python-minimal aptitude
 python -mplatform | grep -i Ubuntu && sudo add-apt-repository -y ppa:ansible/ansible || sudo yum -y install epel-release deltarpm
 
 # install all updates except kernel updates (creates compatability problems with VBox Guest Additions)
@@ -26,7 +26,7 @@ echo 'riak-test' | sudo tee -a /etc/ansible/hosts
 sudo sed -i -s 's/^\#roles_path    \= \/etc\/ansible\/roles/roles_path = \/etc\/ansible\/roles:\/vagrant\/ansible-roles/' /etc/ansible/ansible.cfg
 
 # install galaxy roles
-sudo ansible-galaxy install basho-labs.riak-kv geerlingguy.php geerlingguy.composer joshualund.golang geerlingguy.java geerlingguy.repo-remi geerlingguy.nodejs geerlingguy.ruby
+sudo ansible-galaxy install -r /vagrant/ansible-roles/requirements.txt
 
 printf '
 ######################################################################################
