@@ -7,7 +7,13 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "bento/centos-7.2"
+  #config.vm.box = "bento/centos-6.7"
+
   #config.vm.box = "bento/ubuntu-16.04"
+  #config.vm.box = "bento/ubuntu-14.04"
+
+  #config.vm.box = "bento/debian-8.5"
+  #config.vm.box = "bento/debian-7.8"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
