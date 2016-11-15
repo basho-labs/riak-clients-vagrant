@@ -27,6 +27,7 @@ sudo pip install ansible
 
 # install galaxy roles
 sudo ansible-galaxy install -r /vagrant/provisioning/requirements.yml
+sudo ansible-galaxy install -r /etc/ansible/roles/basho-labs/requirements.yml
 
 printf '
 ######################################################################################
