@@ -2,6 +2,7 @@
 - hosts: localhost
   become: true
   become_method: sudo
+  connection: local
   roles:
     - { role: common }
 
