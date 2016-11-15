@@ -32,5 +32,5 @@
       - {user: 'riakpass', type: 'password', cidr: '0.0.0.0/0'}
 
     riak_grants:
-      - {subject: 'riakuser', scope: 'any', permissions: '{{ it_permissions|join(",")}}'}
-      - {subject: 'riakpass', scope: 'any', permissions: '{{ it_permissions|join(",")}}'}
+      - {subject: 'riakuser', scope: 'any', permissions: '{{ riak_testing_permissions|join(",")}}'}
+      - {subject: 'riakpass', scope: 'any', permissions: '{{ riak_testing_permissions|join(",")}}'}
