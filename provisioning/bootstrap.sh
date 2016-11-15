@@ -13,23 +13,20 @@ printf '
 python -mplatform | grep -i centos && sudo yum -y install epel-release deltarpm
 
 # install all updates except kernel updates (creates compatability problems with VBox Guest Additions)
-python -mplatform | grep -i '/Ubuntu|debian/' && sudo apt-get update -y || sudo yum -y -x 'kernel*' update
+python -mplatform | grep -iE 'Ubuntu|debian' && sudo apt-get update -y || sudo yum -y -x 'kernel*' update
 
-python -mplatform | grep -i '/Ubuntu|debian/' && sudo apt-get install -y software-properties-common python-software-properties python-minimal aptitude libffi-dev
+python -mplatform | grep -iE 'Ubuntu|debian' && sudo apt-get install -y software-properties-common python-software-properties python-minimal aptitude libffi-dev python-pip python-dev git || sudo yum install -y git
 
-python -mplatform | grep -i debian && sudo apt-get install -y python-pip python-dev git
+sudo pip install markupsafe
 
 # install ansible
 sudo pip install ansible
 
 # setup the local machine as the ansible host
-echo 'riak-test' | sudo tee -a /etc/ansible/hosts
-
-# setup ansible to look in our roles repo for roles
-sudo sed -i -s 's/^\#roles_path    \= \/etc\/ansible\/roles/roles_path = \/etc\/ansible\/roles:\/vagrant\/ansible-roles/' /etc/ansible/ansible.cfg
+#echo 'riak-test' | sudo tee -a /etc/ansible/hosts
 
 # install galaxy roles
-sudo ansible-galaxy install -r /vagrant/ansible-roles/requirements.txt
+sudo ansible-galaxy install -r /vagrant/provisioning/requirements.yml
 
 printf '
 ######################################################################################
@@ -40,7 +37,7 @@ printf '
 
 if [ "$1" = "true" ]
 then
-    ansible-playbook /vagrant/provisioning/playbook.yml
+    ansible-playbook -v /vagrant/provisioning/playbook.yml
 fi
 
 printf '

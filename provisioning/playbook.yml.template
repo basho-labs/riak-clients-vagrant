@@ -4,22 +4,20 @@
   become_method: sudo
   connection: local
   roles:
-    - { role: common }
-
     # Following client environments are only needed if NOT using the `client_smoke_tests` role
-    #- { role: php }
-    #- { role: golang }
-    #- { role: java }
-    #- { role: nodejs }
-    #- { role: ruby }
-    #- { role: dotnet }
+    #- { role: basho-labs/php }
+    #- { role: basho-labs/golang }
+    #- { role: basho-labs/java }
+    #- { role: basho-labs/nodejs }
+    #- { role: basho-labs/ruby }
+    #- { role: basho-labs/dotnet }
 
     # `riak_testing` configures Riak for client library tests
     #   * `riak_conf_template` - the Ansible Riak role tempalte is overridden here
     #   * `riak_node_name` -
     #   * `riak_testing_nightlies` - is used to use a nightly build of Riak versus packages via the Ansible Galaxy role
     - {
-        role: riak_testing,
+        role: basho-labs/riak_testing,
         #riak_testing_nightlies: true,
         riak_conf_template: '/vagrant/ansible-roles/riak_testing/templates/riak.conf.j2',
         riak_node_name: "riak@127.0.0.1",
@@ -33,12 +31,15 @@
     #   * logs any failures to /var/log/client_smoke_tests/ on the local machine
     #   * use ct_test_libs to limit the execution of client languages to the supplied list
     - {
-        role: client_smoke_tests,
+        role: basho-labs/client_smoke_tests,
         #ct_test_libs: ['php','go']
       }
   vars:
     # the vars section is used to pick the settings you want for your local environment
     # see roles/{role_name}/defaults/main.yml for settings you can override
+
+    # GH Personal access token is needed to hit the GH API, see https://github.com/settings/tokens
+    #ct_github_token: a_valid_token
 
     # Uncomment following line to use alternate package. Options include URL to RPM or DEB, riak-ts, or a specific version from packagecloud.
     #riak_package: 'https://s3.amazonaws.com/downloads.basho.com/basho-internal/riak/2.2/2.2.0rc4/rhel/7/riak-2.2.0rc4-1.el7.centos.x86_64.rpm'
