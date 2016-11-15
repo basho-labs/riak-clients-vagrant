@@ -10,14 +10,17 @@ printf '
 ######################################################################################'
 
 # install EPEL repo and allow deltarpms to save bandwidth
-python -mplatform | grep -i Ubuntu && sudo apt-get install -y software-properties-common python-software-properties python-minimal aptitude
-python -mplatform | grep -i Ubuntu && sudo add-apt-repository -y ppa:ansible/ansible || sudo yum -y install epel-release deltarpm
+python -mplatform | grep -i centos && sudo yum -y install epel-release deltarpm
 
 # install all updates except kernel updates (creates compatability problems with VBox Guest Additions)
-python -mplatform | grep -i Ubuntu && sudo apt-get update -y || sudo yum -y -x 'kernel*' update
+python -mplatform | grep -i '/Ubuntu|debian/' && sudo apt-get update -y || sudo yum -y -x 'kernel*' update
+
+python -mplatform | grep -i '/Ubuntu|debian/' && sudo apt-get install -y software-properties-common python-software-properties python-minimal aptitude libffi-dev
+
+python -mplatform | grep -i debian && sudo apt-get install -y python-pip python-dev git
 
 # install ansible
-python -mplatform | grep -i Ubuntu && sudo apt-get install -y ansible || sudo yum -y install ansible
+sudo pip install ansible
 
 # setup the local machine as the ansible host
 echo 'riak-test' | sudo tee -a /etc/ansible/hosts
