@@ -15,19 +15,19 @@ python -mplatform | grep -i centos && sudo yum -y install epel-release deltarpm
 # install all updates except kernel updates (creates compatability problems with VBox Guest Additions)
 python -mplatform | grep -iE 'Ubuntu|debian' && sudo apt-get update -y || sudo yum -y -x 'kernel*' update
 
-python -mplatform | grep -iE 'Ubuntu|debian' && sudo apt-get install -y software-properties-common python-software-properties python-minimal aptitude libffi-dev python-pip python-dev git || sudo yum install -y git
+python -mplatform | grep -iE 'Ubuntu|debian' && sudo apt-get install -y software-properties-common python-software-properties python-minimal aptitude libffi-dev python-pip python-dev git || sudo yum install -y git python-pip python-devel libffi-devel gcc openssl-devel
 
 sudo pip install markupsafe
 
 # install ansible
 sudo pip install ansible
 
-# setup the local machine as the ansible host
-#echo 'riak-test' | sudo tee -a /etc/ansible/hosts
-
 # install galaxy roles
 sudo ansible-galaxy install -r /vagrant/provisioning/requirements.yml
 sudo ansible-galaxy install -r /etc/ansible/roles/basho-labs/requirements.yml
+
+# setup the local machine as the ansible host
+echo 'riak-test' | sudo tee -a /etc/ansible/hosts
 
 printf '
 ######################################################################################
