@@ -38,7 +38,7 @@ printf '
 
 if [ "$1" = "true" ]
 then
-    ansible-playbook -v /vagrant/provisioning/playbook.yml
+    ansible-playbook /vagrant/provisioning/playbook.yml
 fi
 
 printf '
