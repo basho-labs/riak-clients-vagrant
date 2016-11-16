@@ -19,7 +19,7 @@
     - {
         role: basho-labs/riak_testing,
         #riak_testing_nightlies: true,
-        riak_conf_template: '/vagrant/ansible-roles/riak_testing/templates/riak.conf.j2',
+        riak_conf_template: '/etc/ansible/roles/basho-labs/riak_testing/templates/riak.conf.j2',
         riak_node_name: "riak@127.0.0.1",
       }
 
