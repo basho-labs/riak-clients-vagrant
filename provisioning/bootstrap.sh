@@ -46,6 +46,9 @@ printf '
 ##                                                                                  ##
 ##                          Provisioning complete!                                  ##
 ##                                                                                  ##
+## If you need to run the main playbook manually, use:                              ##
+##   `sudo ansible-playbook /vagrant/provisioning/playbook.yml`                     ##
+##                                                                                  ##
 ## Useful commands:                                                                 ##
 ##   - `vagrant ssh` login to your VM via ssh                                       ##
 ##   - `vagrant provision` rerun this provisioner                                   ##
