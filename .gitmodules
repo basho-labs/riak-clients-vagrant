@@ -1,6 +1,6 @@
 [submodule "tools"]
 	path = tools
 	url = git@github.com:basho/riak-client-tools.git
-[submodule "ansible-riak"]
+[submodule "provisioning/roles/basho-labs.riak-kv.dev"]
 	path = provisioning/roles/basho-labs.riak-kv.dev
 	url = git@github.com:basho-labs/ansible-riak.git
