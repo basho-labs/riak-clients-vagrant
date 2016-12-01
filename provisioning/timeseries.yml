@@ -2,20 +2,31 @@
 - hosts: localhost
   become: true
   become_method: sudo
+  connection: local
   roles:
     - { role: common }
     - {
-        role: riak_testing,
+        role: basho-labs/riak_testing,
+        riak_conf_template: '/etc/ansible/roles/basho-labs/riak_testing/templates/riak.conf.j2',
         riak_node_name: "riak@127.0.0.1"
       }
-    - { role: client_smoke_tests }
+    - { role: basho-labs/client_smoke_tests,
+        #ct_test_libs: ['php','go', 'ruby', 'nodejs', 'java']
+      }
   vars:
-    riak_package: 'riak-ts'
-    #riak_package: 'riak-ts-1.3.1'
-    #riak_package: https://github.com/basho/internal_wiki/wiki/Riak-TS-1.4.0rc9-Release
+        # the vars section is used to pick the settings you want for your local environment
+    # see roles/{role_name}/defaults/main.yml for settings you can override
+
+    # GH Personal access token is needed to hit the GH API, see https://github.com/settings/tokens
+    #ct_github_token: a_valid_token
+
+    # Uncomment following line to use alternate package. Options include URL to RPM or DEB, riak-ts, or a specific version from packagecloud.
+    #riak_package: a_valid_package
+
+    #riak_testing_role_dev: true
     riak_shell_group: 'riak-ts'
     ct_cmd: cmdts
-
+   
     riak_search:  'on'
     riak_backend: 'leveldb'
     riak_pb_bind_ip: 127.0.0.1

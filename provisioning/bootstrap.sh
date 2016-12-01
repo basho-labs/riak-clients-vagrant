@@ -36,9 +36,22 @@ printf '
 ##                                                                                  ##
 ######################################################################################'
 
-if [ "$1" = "true" ]
+if [[ "$1" == *"kv"* ]]
 then
+	printf 'Running KV tests'
     ansible-playbook /vagrant/provisioning/playbook.yml
+fi
+
+if [[ "$1" == *"ts"* ]]
+then
+	printf 'Running TS tests'
+    ansible-playbook /vagrant/provisioning/timeseries.yml
+fi
+
+if [[ "$1" == *"security"* ]]
+then
+	printf 'Running Security tests'
+    ansible-playbook /vagrant/provisioning/security.yml
 fi
 
 printf '

@@ -31,9 +31,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.vm.network :forwarded_port, guest: 22, host: 4545
 
   # Riak Ports - HTTP, HTTPS, PB
-  config.vm.network :forwarded_port, guest: 8087, host: 8087
-  config.vm.network :forwarded_port, guest: 10011, host: 10011
-  config.vm.network :forwarded_port, guest: 8098, host: 8098
+  #config.vm.network :forwarded_port, guest: 8087, host: 8087
+  #config.vm.network :forwarded_port, guest: 10011, host: 10011
+  #config.vm.network :forwarded_port, guest: 8098, host: 8098
 
   # The following is useful if you want to make your VM accessible on the local network
   # You have to specify the static IP for the network and the NIC it will be using from the host machine.
@@ -69,7 +69,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #  then executes /vagrant/provisioning/playbook.yml to provision your Guest.
   #   - This script is kicked off upon the initial "vagrant up" command issued on this vagrant instance
   #     and then only when the "vagrant provision" command is issued on this instance
-  config.vm.provision "shell", path: "provisioning/bootstrap.sh", args: "true"
+  config.vm.provision "shell", path: "provisioning/bootstrap.sh", args: ENV['SMOKE_TESTS']
 
   ##########################################################################
   # VirtualBox Guest Virtual Machine Configuaration

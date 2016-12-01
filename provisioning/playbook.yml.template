@@ -32,7 +32,7 @@
     #   * use ct_test_libs to limit the execution of client languages to the supplied list
     - {
         role: basho-labs/client_smoke_tests,
-        #ct_test_libs: ['php','go']
+        #ct_test_libs: ['php','go', 'ruby', 'nodejs', 'java']
       }
   vars:
     # the vars section is used to pick the settings you want for your local environment
@@ -42,8 +42,9 @@
     #ct_github_token: a_valid_token
 
     # Uncomment following line to use alternate package. Options include URL to RPM or DEB, riak-ts, or a specific version from packagecloud.
-    #riak_package: 'https://s3.amazonaws.com/downloads.basho.com/basho-internal/riak/2.2/2.2.0rc4/rhel/7/riak-2.2.0rc4-1.el7.centos.x86_64.rpm'
-
+    #riak_package: a_valid_package
+    
+    #riak_testing_role_dev: true
     riak_search:  'on'
     riak_backend: 'multi'
     riak_pb_bind_ip: 127.0.0.1
