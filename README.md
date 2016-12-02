@@ -32,6 +32,7 @@ Under development or on the roadmap for development:
 - Open Vagrantfile in your favorite editor and review/edit the settings for your guest VM as needed (e.g. path to file system shares between the host and guest machines)
 - Open provisioning/playbook.yml in your favorite editor and review/edit the settings for your guest VM as needed
 - Next initialize and update the git submodules by running `git submodule init && git submodule update`, which will fetch the ansible-roles and client tools repositories
+- Export variable SMOKE_TESTS. This variable should be set to `kv` or `ts`
 - Run `vagrant up` to turn on your VM for the first time. It will automatically do the initial provisioning for the guest machine
 - After the machine has completed initial provisioning, login to it by running `vagrant ssh`
 - Once in the machine, run `ansible-playbook /vagrant/provisioning/playbook.yml` to install Riak (alternatively you can run timeseries.yml or security.yml to test TS or security instead)
