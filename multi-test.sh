@@ -2,8 +2,7 @@
 
 # Setup variables
 tests="ts"
-#githubtoken="put you github token here"
-githubtoken="token"
+githubtoken="put you github token here"
 declare -a vmboxes=(
 						"vagrant box to use"
 					) 
@@ -45,7 +44,6 @@ do
 		sed -i ".bak" "s~#ct_github_token:~ct_github_token:~" ./parallel/vm$i/provisioning/playbook.yml
 		sed -i ".bak" "s~#riak_package:~riak_package:~" ./parallel/vm$i/provisioning/playbook.yml
 		sed -i ".bak" "s~#ct_test_libs:~ct_test_libs:~" ./parallel/vm$i/provisioning/playbook.yml
-		sed -i ".bak" "s~['php','go']~['$clients']~" ./parallel/vm$i/provisioning/playbook.yml
 	fi 
 	
 	if [[ "$tests" == *"ts"* ]]
@@ -58,6 +56,7 @@ do
 		sed -i ".bak" "s~#riak_testing_role_dev:~riak_testing_role_dev:~" ./parallel/vm$i/provisioning/timeseries.yml
 		sed -i ".bak" "s~#ct_github_token:~ct_github_token:~" ./parallel/vm$i/provisioning/timeseries.yml
 		sed -i ".bak" "s~#riak_package:~riak_package:~" ./parallel/vm$i/provisioning/timeseries.yml
+		sed -i ".bak" "s~#ct_test_libs:~ct_test_libs:~" ./parallel/vm$i/provisioning/playbook.yml
 	fi
 done
 
@@ -81,3 +80,4 @@ do
 	printf "VAGRANT_CWD=./parallel/vm$i/ vagrant destroy\n"
 	printf "cat ./parallel/vm$i/log$i.txt\n"
 done
+export SMOKE_TESTS=''
