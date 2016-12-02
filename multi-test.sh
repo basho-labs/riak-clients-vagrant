@@ -1,19 +1,21 @@
 #!/bin/bash
 
 # Setup variables
-tests="ts"
-githubtoken="put you github token here"
+# Which flavor or Riak to test, kv or ts
+tests="kv"
+
+# List of vagrant boxes to use
 declare -a vmboxes=(
-						"vagrant box to use"
-					) 
-
-declare -a kvosspackages=(
-							"url to riak kv package"
-						  ) 
-
-declare -a tsosspackages=(
-							"url to riak ts package"
-						  ) 
+            "vagrant boxes"
+          ) 
+# List of riak package urls
+# Note: the position of the packages for a specific OS in this array should
+# correspond to the position of vagrant box in the previous array based on OS
+declare -a riakpackages=(
+              "url to riak packages"
+              ) 
+# Your Github personal access token
+githubtoken="your github token"
 
 export SMOKE_TESTS=$tests
 numboxes=${#vmboxes[@]}
@@ -35,34 +37,29 @@ do
 
 	if [[ "$tests" == *"kv"* ]]
 	then
-		# Set variables in playbook.yml
 		printf 'Setting up KV playbook\n'
-		package="${kvosspackages[$i-1]}"
-		sed -i ".bak" "s~a_valid_package~'$package'~" ./parallel/vm$i/provisioning/playbook.yml
-		sed -i ".bak" "s~a_valid_token~'$githubtoken'~" ./parallel/vm$i/provisioning/playbook.yml
-		sed -i ".bak" "s~#riak_testing_role_dev:~riak_testing_role_dev:~" ./parallel/vm$i/provisioning/playbook.yml
-		sed -i ".bak" "s~#ct_github_token:~ct_github_token:~" ./parallel/vm$i/provisioning/playbook.yml
-		sed -i ".bak" "s~#riak_package:~riak_package:~" ./parallel/vm$i/provisioning/playbook.yml
-		sed -i ".bak" "s~#ct_test_libs:~ct_test_libs:~" ./parallel/vm$i/provisioning/playbook.yml
+		playbook="playbook.yml"
 	fi 
 	
 	if [[ "$tests" == *"ts"* ]]
 	then
-		# Set variables in timeseries.yml
 		printf 'Setting up TS playbook\n'
-		package="${tsosspackages[$i-1]}"
-		sed -i ".bak" "s~a_valid_package~'$package'~" ./parallel/vm$i/provisioning/timeseries.yml
-		sed -i ".bak" "s~a_valid_token~'$githubtoken'~" ./parallel/vm$i/provisioning/timeseries.yml
-		sed -i ".bak" "s~#riak_testing_role_dev:~riak_testing_role_dev:~" ./parallel/vm$i/provisioning/timeseries.yml
-		sed -i ".bak" "s~#ct_github_token:~ct_github_token:~" ./parallel/vm$i/provisioning/timeseries.yml
-		sed -i ".bak" "s~#riak_package:~riak_package:~" ./parallel/vm$i/provisioning/timeseries.yml
-		sed -i ".bak" "s~#ct_test_libs:~ct_test_libs:~" ./parallel/vm$i/provisioning/playbook.yml
+		playbook="timeseries.yml"
 	fi
+	# Configure playbook variables
+	package="${riakpackages[$i-1]}"
+	sed -i ".bak" "s~a_valid_package~'$package'~" ./parallel/vm$i/provisioning/$playbook
+	sed -i ".bak" "s~a_valid_token~'$githubtoken'~" ./parallel/vm$i/provisioning/$playbook
+	# Uncomment playbook lines
+	sed -i ".bak" "s~#riak_testing_role_dev:~riak_testing_role_dev:~" ./parallel/vm$i/provisioning/$playbook
+	sed -i ".bak" "s~#ct_github_token:~ct_github_token:~" ./parallel/vm$i/provisioning/$playbook
+	sed -i ".bak" "s~#riak_package:~riak_package:~" ./parallel/vm$i/provisioning/$playbook
+	sed -i ".bak" "s~#ct_test_libs:~ct_test_libs:~" ./parallel/vm$i/provisioning/$playbook
 done
 
+printf 'Running Tests...this could take awhile.\n'
 for (( i=1; i<${numboxes}+1; i++ ));
 do
-	printf 'Running Tests...this could take awhile.\n'
 	if (( ${numboxes} == 1 ))
 	then
 		VAGRANT_CWD=./parallel/vm$i/ vagrant up &
