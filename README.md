@@ -32,7 +32,7 @@ Under development or on the roadmap for development:
 - Open Vagrantfile in your favorite editor and review/edit the settings for your guest VM as needed (e.g. path to file system shares between the host and guest machines)
 - Open provisioning/playbook.yml in your favorite editor and review/edit the settings for your guest VM as needed
 - Next initialize and update the git submodules by running `git submodule init && git submodule update`, which will fetch the ansible-roles and client tools repositories
-- Export variable SMOKE_TESTS. This variable should be set to `kv` or `ts`
+- Export variable SMOKE_TESTS. This variable should be set to `kv` or `ts`. `export SMOKE_TESTS="kv"` or `export SMOKE_TESTS="ts"`
 - Run `vagrant up` to turn on your VM for the first time. It will automatically do the initial provisioning for the guest machine
 - After the machine has completed initial provisioning, login to it by running `vagrant ssh`
 - Once in the machine, run `ansible-playbook /vagrant/provisioning/playbook.yml` to install Riak (alternatively you can run timeseries.yml or security.yml to test TS or security instead)
@@ -42,3 +42,11 @@ Under development or on the roadmap for development:
 # Ansible Galaxy Riak role development
 
 If you want to contribute to the Ansible Riak role, clone the repository to `provisioning/roles/basho-labs.riak-kv.dev` and `riak_testing_role_dev: true` to your playbook.yml. This will tell signal to the Ansible roles to use the local checkout for playbook execution instead of the latest release to Ansible Galaxy.
+
+# Running tests in parallel
+- Open `multi-test.sh` and add your target vagrant boxes and Riak package URLs in the appropriate place
+- `export CT_GITHUB_TOKEN="put your github token here"`
+- `export SMOKE_TESTS="ts"` or `export SMOKE_TESTS="kv"`
+- `export CT_TEST_LIBS="['php','go', 'ruby', 'nodejs', 'java']"`
+- `export RIAK_TESTING_ROLE_DEV="true"`
+- `sh multi-test.sh`

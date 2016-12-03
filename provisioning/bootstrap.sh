@@ -39,19 +39,18 @@ printf '
 if [[ "$1" == *"kv"* ]]
 then
 	printf 'Running KV tests'
-    ansible-playbook /vagrant/provisioning/playbook.yml
-fi
-
-if [[ "$1" == *"ts"* ]]
+    ansible-playbook /vagrant/provisioning/playbook.yml --extra-vars="${2}"
+elif [[ "$1" == *"ts"* ]]
 then
 	printf 'Running TS tests'
-    ansible-playbook /vagrant/provisioning/timeseries.yml
-fi
-
-if [[ "$1" == *"security"* ]]
+    ansible-playbook /vagrant/provisioning/timeseries.yml --extra-vars="${2}"
+elif [[ "$1" == *"security"* ]]
 then
 	printf 'Running Security tests'
-    ansible-playbook /vagrant/provisioning/security.yml
+    ansible-playbook /vagrant/provisioning/security.yml --extra-vars="${2}"
+else
+	printf 'Defaulting to running KV tests'
+    ansible-playbook /vagrant/provisioning/playbook.yml --extra-vars="${2}"
 fi
 
 printf '
