@@ -47,6 +47,6 @@ If you want to contribute to the Ansible Riak role, clone the repository to `pro
 - Open `multi-test.sh` and add your target vagrant boxes and Riak package URLs in the appropriate place
 - `export CT_GITHUB_TOKEN="put your github token here"`
 - `export SMOKE_TESTS="ts"` or `export SMOKE_TESTS="kv"`
-- `export CT_TEST_LIBS="['php','go', 'ruby', 'nodejs', 'java']"`
+- `export CT_TEST_LIBS="['php', 'go', 'ruby', 'nodejs', 'java']"`
 - `export RIAK_TESTING_ROLE_DEV="true"`
 - `sh multi-test.sh`
