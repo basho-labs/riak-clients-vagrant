@@ -14,7 +14,7 @@ declare -a riakpackages=(
               "put package urls here"
               "put package urls here"
               "put package urls here"
-              ) 
+              )
 
 if [ -z ${CT_GITHUB_TOKEN+x} ]; then printf 'Variable CT_GITHUB_TOKEN not set. Exiting...' && exit; fi
 if [ -z ${SMOKE_TESTS+x} ]; then printf 'Variable SMOKE_TESTS not set. Exiting...' && exit; fi

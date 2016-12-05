@@ -4,3 +4,5 @@
 Vagrantfile
 playbook.yml
 *.retry
+results/
+parallel/
