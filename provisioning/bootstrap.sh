@@ -23,8 +23,8 @@ sudo pip install markupsafe
 sudo pip install ansible
 
 # install galaxy roles
-sudo ansible-galaxy install -r /vagrant/provisioning/requirements.yml
-sudo ansible-galaxy install -r /etc/ansible/roles/basho-labs/requirements.yml
+sudo ansible-galaxy install -f -r /vagrant/provisioning/requirements.yml
+sudo ansible-galaxy install -f -r /etc/ansible/roles/basho-labs/requirements.yml
 
 # setup the local machine as the ansible host
 echo 'riak-test' | sudo tee -a /etc/ansible/hosts

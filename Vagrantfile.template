@@ -31,9 +31,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.vm.network :forwarded_port, guest: 22, host: 4545
 
   # Riak Ports - HTTP, HTTPS, PB
-  config.vm.network :forwarded_port, guest: 8087, host: 8087
-  config.vm.network :forwarded_port, guest: 10011, host: 10011
-  config.vm.network :forwarded_port, guest: 8098, host: 8098
+  #   - Only needed if you want to access Riak from your host machine
+  #config.vm.network :forwarded_port, guest: 8087, host: 8087
+  #config.vm.network :forwarded_port, guest: 10011, host: 10011
+  #config.vm.network :forwarded_port, guest: 8098, host: 8098
 
   # The following is useful if you want to make your VM accessible on the local network
   # You have to specify the static IP for the network and the NIC it will be using from the host machine.
