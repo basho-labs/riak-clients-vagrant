@@ -70,7 +70,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #  then executes /vagrant/provisioning/playbook.yml to provision your Guest.
   #   - This script is kicked off upon the initial "vagrant up" command issued on this vagrant instance
   #     and then only when the "vagrant provision" command is issued on this instance
-  config.vm.provision "shell", path: "provisioning/bootstrap.sh", args: ENV['SMOKE_TESTS']
+  smoketests = ENV['SMOKE_TESTS'] || 'kv'
+  extravars = ENV['EXTRA_VARS'] || ''
+  config.vm.provision "shell", path: "provisioning/bootstrap.sh", args: [smoketests,extravars]
 
   ##########################################################################
   # VirtualBox Guest Virtual Machine Configuaration
