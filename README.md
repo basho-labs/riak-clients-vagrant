@@ -48,7 +48,7 @@ If you want to contribute to the Ansible Riak role, clone the repository to `pro
 - `export CT_GITHUB_TOKEN="put your github token here"`
 - `export SMOKE_TESTS="ts"` or `export SMOKE_TESTS="kv"`. If not exported, defaults to `kv`
 - `export CT_TEST_LIBS="['php', 'go', 'ruby', 'nodejs', 'java']"`
-- `export RIAK_TESTING_ROLE_DEV="true"`
+- Set concurrency limit, e.g. `export CONCURRENCY_LIMIT=1` for sequential runs or `export CONCURRENCY_LIMIT=3` for 3 VM's at a time
 - `sh multi-test.sh run`
 - After running the tests, you can clean up with `sh multi-test.sh cleanup`. This will shutdown all VMs and delete their directories. This will leave the test results in `./results`
 - Run `sh multi-test.sh reset` to delete all VM's and testing directories, including the `./results`
