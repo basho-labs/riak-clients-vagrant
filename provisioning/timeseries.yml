@@ -3,13 +3,13 @@
   connection: local
   become: true
   become_method: sudo
-  connection: local
   roles:
     - {
         role: basho-labs/riak_testing,
         riak_node_name: "riak@127.0.0.1"
       }
-    - { role: basho-labs/client_smoke_tests,
+    - {
+        role: basho-labs/client_smoke_tests,
         #ct_test_libs: ['php'] #'php','go', 'ruby', 'nodejs', 'java'
       }
   vars:
