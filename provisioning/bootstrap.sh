@@ -52,6 +52,8 @@ fi
 
 ansible-playbook /vagrant/provisioning/${PLAYBOOK}.yml --extra-vars="${2}"
 
+if [[ "$VAGRANT_RIAK_VERBOSE" != "false" ]]
+then
 printf '
 ######################################################################################
 ##                                                                                  ##
@@ -65,8 +67,10 @@ printf '
 ##   - Try vagrant destroy, then vagrant up again                                   ##
 ##   - If you cannot resolve it, please copy / pasta the error to a GitHub Issue    ##
 ##                                                                                  ##
-## If you need to run the playbook manually, use:                                   ##
-##   `sudo ansible-playbook /vagrant/provisioning/%s.yml --extra-vars="%s"`         ##
 ##                                                                                  ##
 ######################################################################################
+
+If you need to run the playbook manually, use:
+\t`sudo ansible-playbook /vagrant/provisioning/%s.yml --extra-vars="%s"`
 ' ${PLAYBOOK} "${2}"
+fi

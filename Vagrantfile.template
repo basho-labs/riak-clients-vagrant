@@ -72,7 +72,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #     and then only when the "vagrant provision" command is issued on this instance
   smoketests = ENV['SMOKE_TESTS'] || 'kv'
   extravars = ENV['EXTRA_VARS'] || ''
-  config.vm.provision "shell", path: "provisioning/bootstrap.sh", args: [smoketests,extravars]
+  config.vm.provision "shell", path: "provisioning/bootstrap.sh", env: {"VAGRANT_RIAK_VERBOSE" => "true"}, args: [smoketests,extravars]
 
   ##########################################################################
   # VirtualBox Guest Virtual Machine Configuaration
