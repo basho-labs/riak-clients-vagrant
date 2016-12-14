@@ -7,4 +7,4 @@
 - src: git://github.com/basho-labs/ansible-roles.git
   name: basho-labs
   scm: git
-  version: ubuntu-n-galaxy
+  version: master
