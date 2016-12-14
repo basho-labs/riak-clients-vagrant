@@ -1,7 +1,7 @@
 ---
 - name: install utilities and dependencies
-  package: name={{ item }} state=present
-  become: yes
+  package: "name={{ item }} state=present"
+  become: true
   with_items:
     - autoconf
     - automake
@@ -17,8 +17,8 @@
     - wget
 
 - name: install utilities and dependencies Debian
-  package: name={{ item }} state=present
-  become: yes
+  package: "name={{ item }} state=present"
+  become: true
   when: ansible_os_family == "Debian"
   with_items:
     - build-essential
@@ -31,8 +31,8 @@
     - zlib1g-dev
 
 - name: install utilities and dependencies RedHat
-  package: name={{ item }} state=present
-  become: yes
+  package: "name={{ item }} state=present"
+  become: true
   when: ansible_os_family == "RedHat"
   with_items:
     - gcc
@@ -49,4 +49,4 @@
 
 - name: setup ntpdate cron
   cron: name="NTP Updater" minute="0" job="/usr/sbin/ntpdate -us clock.isc.org"
-  become: yes
+  become: true

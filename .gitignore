@@ -4,4 +4,5 @@
 Vagrantfile
 playbook.yml
 *.retry
-provisioning/roles/basho-labs.riak-kv.dev
+results/
+parallel/
