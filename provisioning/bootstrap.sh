@@ -9,7 +9,7 @@ printf '
 ######################################################################################'
 
 # install EPEL repo and allow deltarpms to save bandwidth
-python -mplatform | grep -i centos && sudo yum -y install epel-release deltarpm
+python -mplatform | grep -i centos && sudo yum -y install epel-release deltarpm libselinux-python
 
 # install all updates except kernel updates (creates compatability problems with VBox Guest Additions)
 python -mplatform | grep -iE 'Ubuntu|debian' && sudo apt-get update -y || sudo yum -y -x 'kernel*' update
