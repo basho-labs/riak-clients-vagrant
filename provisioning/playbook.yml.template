@@ -43,7 +43,7 @@
 
     # Uncomment following line to use alternate package. Options include URL to RPM or DEB, riak-ts, or a specific version from packagecloud.
     #riak_package: a_valid_package
-    
+
     #riak_testing_role_dev: true
     riak_search:  'on'
     riak_backend: 'multi'
@@ -53,6 +53,8 @@
     riak_bucket_types:
       - { name: bitcask, props: '{"props":{"backend":"bitcask_backend"}}' }
       - { name: counters, props: '{"props":{"datatype":"counter"}}' }
+      - { name: hlls, props: '{"props":{"datatype":"hll"}}' }
+      - { name: gsets, props: '{"props":{"datatype":"gset"}}' }
       - { name: leveldb_type, props: '' }
       - { name: maps, props: '{"props":{"datatype":"map"}}' }
       - { name: memory_type, props: '{"props":{"backend":"mem_backend"}}' }
